@@ -1,0 +1,198 @@
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../../styles/Footer.module.less";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { buyNFT, getUser } from "../api/request";
+import Loader from "./loader";
+
+export interface props {
+  data: object;
+  userInfo: object;
+}
+
+const Footer = (props: props) => {
+  const router = useRouter();
+  const { data, userInfo } = props;
+  const [buyModal, setBuyModal] = useState(false);
+  const [resultStatus, setResultStatus] = useState(0);
+
+  return (
+    <div className={styles.footer}>
+      {!buyModal && (
+        <div>
+          {data?.price ? (
+            <div className={styles.footer_price}>
+              <img
+                src="/images/icon/icon_Solana.svg"
+                alt=""
+                style={{
+                  position: "relative",
+                  top: "2px",
+                }}
+              />
+              {data?.price}
+            </div>
+          ) : (
+            ""
+          )}
+          <div
+            className={styles.footer_button}
+            onClick={() => {
+              if (userInfo?.sol_address !== data.owner_address) {
+                setBuyModal(true);
+              } else {
+                if (data?.price) {
+                  console.log("Manage List");
+                  router.push({
+                    pathname: "/sell",
+                    query: {
+                      imgUrl: data.image,
+                      name: data.name,
+                      mintaddress: data?.mint_address,
+                      type: "manage",
+                      price: data.price,
+                    },
+                  });
+                } else {
+                  router.push({
+                    pathname: "/sell",
+                    query: {
+                      imgUrl: data.image,
+                      name: data.name,
+                      mintaddress: data?.mint_address,
+                    },
+                  });
+                  console.log("List");
+                }
+              }
+            }}
+          >
+            {userInfo?.sol_address === data.owner_address
+              ? data?.price
+                ? "Manage List"
+                : "List"
+              : "Buy"}
+          </div>
+        </div>
+      )}
+      {(buyModal || resultStatus === 2 || resultStatus === 3) &&
+        resultStatus !== 1 && (
+          <div
+            className={styles.footer_button_buy}
+            onClick={async () => {
+              if (resultStatus === 2) {
+                router.push("/");
+              }
+              setResultStatus(1);
+              try {
+                const res = await buyNFT(data?.mint_address, data?.price);
+                if (res) {
+                  setResultStatus(2);
+                } else {
+                  setResultStatus(3);
+                }
+              } catch (error) {
+                setResultStatus(3);
+                console.log(error);
+              }
+            }}
+          >
+            {resultStatus === 2 || resultStatus === 3
+              ? resultStatus === 2
+                ? "Back to Marketplace"
+                : "Retry"
+              : "Buy"}
+          </div>
+        )}
+      {buyModal && (
+        <div className={styles.buymodal}>
+          <p className={styles.rectangle}></p>
+          <p className={styles.module_title}>
+            Buy
+            <img
+              style={{
+                float: "right",
+                marginTop: "10px",
+              }}
+              src="/function.svg"
+              alt=""
+              onClick={() => {
+                setBuyModal(false);
+                setResultStatus(0);
+              }}
+            />
+          </p>
+
+          {!resultStatus && (
+            <>
+              <p className={styles.avar}>
+                <img src={data?.image} alt="" />
+                <p>{data?.name}</p>
+                <p>Cost</p>
+              </p>
+              <div className={styles["skills"]}>
+                {data?.attributes?.map((item: object) => {
+                  return (
+                    <p>
+                      <img src="" alt="" />
+                      <span>{item?.trait_type}</span>
+                      <span>{item?.value}</span>
+                    </p>
+                  );
+                })}
+
+                {/* <p>
+              <img src="" alt="" />
+              <span>Rarity</span>
+              <span>Common</span>
+            </p>
+            <p>
+              <img src="" alt="" />
+              <span>Attack</span>
+              <span>76</span>
+            </p>
+            <p>
+              <img src="" alt="" />
+              <span>Defence</span>
+              <span>100</span>
+            </p>
+            <p>
+              <img src="" alt="" />
+              <span>Health</span>
+              <span>120</span>
+            </p> */}
+              </div>
+            </>
+          )}
+          {/* <div className={styles["skills_set"]}>
+            <p>Passive Skill Set</p>
+            <span>Gravitational Shatter</span>
+            <span>Gravitational Shatter</span>
+            <span>Gravitational</span>
+            <span>Gravitational Shatter</span>
+          </div> */}
+          {resultStatus === 1 && <Loader></Loader>}
+          {resultStatus === 2 && (
+            <div className={styles.default_image}>
+              <img
+                src="/images/default/success_pic.svg"
+                onClick={() => {}}
+              ></img>
+              <p>Congratulations! Purchase Successful</p>
+            </div>
+          )}
+          {resultStatus === 3 && (
+            <div className={styles.default_image}>
+              <img src="/images/default/wrong_pic.svg"></img>
+              <p>Ops! Please Try Again</p>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Footer;
