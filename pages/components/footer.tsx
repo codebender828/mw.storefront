@@ -8,7 +8,7 @@ import { buyNFT, getUser } from "../api/request";
 import Loader from "./loader";
 
 export interface props {
-  data: object;
+  data: any;
   userInfo: object;
 }
 
@@ -42,18 +42,19 @@ const Footer = (props: props) => {
           <div
             className={styles.footer_button}
             onClick={() => {
-              if (userInfo?.sol_address !== data.owner_address) {
+              // @ts-ignore
+              if (userInfo?.sol_address !== data?.owner_address) {
                 setBuyModal(true);
               } else {
                 if (data?.price) {
                   router.push({
                     pathname: "/sell",
                     query: {
-                      imgUrl: data.image,
-                      name: data.name,
+                      imgUrl: data?.image,
+                      name: data?.name,
                       mintaddress: data?.mint_address,
                       type: "manage",
-                      price: data.price,
+                      price: data?.price,
                     },
                   });
                 } else {
@@ -70,7 +71,7 @@ const Footer = (props: props) => {
             }}
             style={
               // @ts-ignore
-              userInfo?.sol_address === data.owner_address && !data?.price
+              userInfo?.sol_address === data?.owner_address && !data?.price
                 ? {
                     width: "335px",
                     margin: "0 auto",
@@ -79,7 +80,7 @@ const Footer = (props: props) => {
             }
           >
             {/*@ts-ignore */}
-            {userInfo?.sol_address === data.owner_address
+            {userInfo?.sol_address === data?.owner_address
               ? // @ts-ignore
                 data?.price
                 ? "Manage List"
@@ -140,21 +141,16 @@ const Footer = (props: props) => {
           {!resultStatus && (
             <>
               <p className={styles.avar}>
-                {/* @ts-ignore */}
                 <img src={data?.image} alt="" />
-                {/* @ts-ignore */}
                 <p>{data?.name}</p>
                 <p>Cost</p>
               </p>
               <div className={styles["skills"]}>
-                {/* @ts-ignore */}
                 {data?.attributes?.map((item: any) => {
                   return (
                     <p key={item.trait_type}>
                       <img src="" alt="" />
-                      {/* @ts-ignore */}
                       <span>{item?.trait_type}</span>
-                      {/* @ts-ignore */}
                       <span>{item?.value}</span>
                     </p>
                   );

@@ -28,6 +28,7 @@ const Search = () => {
     switch (type) {
       case 1:
         try {
+          // @ts-ignore
           await updateNFTListing(router?.query?.mintaddress, price);
           setOperationStatus(0);
           setResultStatus(1);
@@ -39,6 +40,7 @@ const Search = () => {
       case 2:
         try {
           await cancelNFTListing(
+            // @ts-ignore
             router?.query?.mintaddress,
             router?.query?.price
           );
@@ -52,6 +54,7 @@ const Search = () => {
         break;
       case 3:
         try {
+          // @ts-ignore
           await updateNFTListing(router?.query?.mintaddress, price);
           setOperationStatus(0);
           setResultStatus(1);
@@ -62,6 +65,7 @@ const Search = () => {
         break;
       case 4:
         try {
+          // @ts-ignore
           await transferNFT(router?.query?.mintaddress, price);
           setOperationStatus(0);
           setResultStatus(1);
@@ -126,6 +130,7 @@ const Search = () => {
                 />
               </p>
               <p className={styles.sell_card_info}>
+                {/* @ts-ignore */}
                 <img src={router?.query?.imgUrl || ""} alt="" />
                 <p>{router?.query?.name}</p>
                 <p className={styles.sell_card_price}>
@@ -233,6 +238,7 @@ const Search = () => {
               </p>
               <p className={styles.sell_card_info}>
                 <img
+                  // @ts-ignore
                   src={router?.query?.imgUrl}
                   alt=""
                   style={{
