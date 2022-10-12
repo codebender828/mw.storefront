@@ -189,12 +189,10 @@ const NftItem = () => {
       <p className={styles["title"]}>On-Chain Attribute</p>
       <div className={styles["On_Chain"]}>
         {/*  @ts-ignore */}
-        {data?.attributes?.map((item: object) => {
+        {data?.attributes?.map((item: any) => {
           return (
-            <div>
-              {/*  @ts-ignore */}
+            <div key={item?.trait_type}>
               <span>{item?.trait_type}</span>
-              {/*  @ts-ignore */}
               <span>{item?.value}</span>
             </div>
           );

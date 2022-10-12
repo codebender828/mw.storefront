@@ -119,13 +119,13 @@ const Filter = (props: props) => {
         {data?.length > 1 && (
           <p className={styles.first_level_search}>
             {data?.length
-              ? data.map((item: object, index: number) => {
+              ? data.map((item: any, index: number) => {
                   return (
                     <span
+                      key={item?.collection_name}
                       className={
                         collectionSelected === index ? styles.selected : ""
                       }
-                      key={item?.collection_name}
                       onClick={() => {
                         firstLevelSearch(item, index);
                       }}
@@ -192,9 +192,10 @@ const Filter = (props: props) => {
                 }}
               >
                 {data?.[collectionSelected]?.collection_orders.map(
-                  (item: object, index: number) => {
+                  (item: any, index: number) => {
                     return (
                       <p
+                        key={item?.order_field}
                         className={`${styles.secondary_search_modal_item} ${
                           orderSearchVal === index
                             ? styles.secondary_search_modal_item_selected
@@ -236,6 +237,7 @@ const Filter = (props: props) => {
                   (item: string, index: number) => {
                     return (
                       <p
+                        key={item}
                         className={`${styles.secondary_search_modal_item} ${
                           filterSearchval[index]
                             ? styles.tertiary_search_modal_item_selected
@@ -328,6 +330,7 @@ const Filter = (props: props) => {
               {orderFilterData?.map((item: any, index: number) => {
                 return (
                   <p
+                    key={index}
                     className={`${styles.secondary_search_modal_item} ${
                       getFilterLength(index)
                         ? styles.tertiary_search_modal_item_selected
@@ -345,7 +348,7 @@ const Filter = (props: props) => {
                         array[collectionSelected][index] = [];
                       }
                       updateSort(array);
-                      array[collectionSelected].sort((a: number, b: number) => {
+                      array[collectionSelected].sort((a: [], b: []) => {
                         // let length1 = a?.length || 0;
                         // let length2 = b?.length || 0;
                         const length1 =
@@ -356,8 +359,6 @@ const Filter = (props: props) => {
                           b?.filter((item: any) => {
                             return item;
                           })?.length || 0;
-                        console.log(a, length1, "a");
-                        console.log(b, length2, "b");
                         return length2 - length1;
                         // return length2 - length1;
                       });
@@ -388,9 +389,10 @@ const Filter = (props: props) => {
           >
             <p className={styles.tertiary_container}>
               {!allSelectShow &&
-                orderFilterData?.map((item: object, index: number) => {
+                orderFilterData?.map((item: any, index: number) => {
                   return (
                     <span
+                      key={item?.filter_name}
                       className={filterVal === index ? styles.selected : ""}
                       onClick={() => {
                         if (filterVal === index) {

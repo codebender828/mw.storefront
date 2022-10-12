@@ -148,9 +148,9 @@ const Footer = (props: props) => {
               </p>
               <div className={styles["skills"]}>
                 {/* @ts-ignore */}
-                {data?.attributes?.map((item: object) => {
+                {data?.attributes?.map((item: any) => {
                   return (
-                    <p>
+                    <p key={item.trait_type}>
                       <img src="" alt="" />
                       {/* @ts-ignore */}
                       <span>{item?.trait_type}</span>
