@@ -44,9 +44,10 @@ const Search: NextPage = () => {
       <div className="search-result">
         {!key && <p className="search_page_title">Everyone is Searching</p>}
         {key && list?.length
-          ? list.map((item, index) => {
+          ? list.map((item: any) => {
               return (
                 <p
+                  key={item?.mint_address}
                   className="search_page_item"
                   onClick={() => {
                     // @ts-ignore
@@ -77,9 +78,10 @@ const Search: NextPage = () => {
           ""
         )}
         {!key && NftRecommend.length
-          ? NftRecommend.map((item: object, index: number) => {
+          ? NftRecommend.map((item: any, index: number) => {
               return (
                 <p
+                  key={item?.mint_address}
                   className="search_page_item"
                   onClick={() => {
                     // @ts-ignore

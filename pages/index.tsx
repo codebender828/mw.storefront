@@ -103,9 +103,10 @@ const Home = () => {
         )}
         {data?.length ? (
           <div className={styles.nft_list_container}>
-            {data.map((item: object, index: number) => {
+            {data.map((item: any, index: number) => {
               return (
                 <div
+                  key={item?.mint_address}
                   className={styles.nft_list_item}
                   onClick={() => {
                     // @ts-ignore
