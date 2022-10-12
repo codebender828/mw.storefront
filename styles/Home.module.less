@@ -129,20 +129,20 @@
 }
 
 .nft_list {
+  padding: 20px 0px;
   .no_content {
     text-align: center;
-    margin: 0 auto;
-    padding-top: 195px;
+    margin: 220px auto;
   }
   background: #ffffff;
   border-radius: 20px 20px 0px 0px;
   margin-top: 10px;
   width: 100%;
-  min-height: 800px;
+  // min-height: 800px;
   .nft_list_container {
-    width: 375px;
+    width: 335px;
     margin: 0 auto;
-    padding: 20px;
+    margin: 0px auto;
     overflow: hidden;
   }
   .nft_list_item {
@@ -155,12 +155,12 @@
     border-radius: 10px;
     img {
       width: 150px;
-      height: 148px;
+      // height: 148px;
       border-radius: 6px;
       margin: 0;
     }
     p:nth-child(2) {
-      margin-top: 8px;
+      // margin-top: 8px;
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
@@ -178,5 +178,29 @@
   }
   .nft_list_item:nth-child(2n) {
     margin-left: 10px;
+  }
+}
+.nft_list_bottom {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height */
+  text-align: center;
+  /* Black */
+  color: rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
+  img:nth-child(1) {
+    margin-right: 10px;
+  }
+  img:nth-child(2) {
+    margin-left: 10px;
+  }
+}
+.nft_list_footer {
+  background-color: #ffffff;
+  overflow: hidden;
+  img {
+    margin: 15px auto;
+    display: block;
   }
 }

@@ -18,7 +18,7 @@ const Filter = (props: props) => {
   const [collectionSelected, setCollectionSelected] = useState(0);
   const [orderSearch, setOrderSearch] = useState(false);
   const [orderFilterData, setOrderFilterData] = useState([]);
-  const [orderSearchVal, setOrderSearchVal] = useState(-1);
+  const [orderSearchVal, setOrderSearchVal] = useState(0);
   const [filterSearch, setFilterSearch] = useState(false);
   const [filterSearchval, setFilterSearchval] = useState([]);
   // single tab
@@ -92,31 +92,51 @@ const Filter = (props: props) => {
       if (!b.selectedCount) b.selectedCount = 0;
       return b.selectedCount - a.selectedCount;
     });
-    console.log(sortData, "sortData");
+
     setOrderFilterData(sortData);
+    const sortArray = array[collectionSelected].sort((a: any, b: any) => {
+      const length1 =
+        a?.filter((item: any) => {
+          return item;
+        })?.length || 0;
+      const length2 =
+        b?.filter((item: any) => {
+          return item;
+        })?.length || 0;
+      console.log(a, length1, "a");
+      console.log(b, length2, "b");
+      return length2 - length1;
+    });
+    array[collectionSelected] = JSON.parse(JSON.stringify(sortArray));
+    console.log(sortData, "orderFilterData");
+    console.log(array, "selectedFilter");
+    setSelectedFilter(JSON.parse(JSON.stringify(array)));
+    return sortData;
   };
   return (
     <div>
       <div className={styles.filter}>
-        <p className={styles.first_level_search}>
-          {data?.length
-            ? data.map((item: object, index: number) => {
-                return (
-                  <span
-                    className={
-                      collectionSelected === index ? styles.selected : ""
-                    }
-                    key={item?.collection_name}
-                    onClick={() => {
-                      firstLevelSearch(item, index);
-                    }}
-                  >
-                    {item?.collection_name}
-                  </span>
-                );
-              })
-            : ""}
-        </p>
+        {data?.length > 1 && (
+          <p className={styles.first_level_search}>
+            {data?.length
+              ? data.map((item: object, index: number) => {
+                  return (
+                    <span
+                      className={
+                        collectionSelected === index ? styles.selected : ""
+                      }
+                      key={item?.collection_name}
+                      onClick={() => {
+                        firstLevelSearch(item, index);
+                      }}
+                    >
+                      {item?.collection_name}
+                    </span>
+                  );
+                })
+              : ""}
+          </p>
+        )}
         <p className={styles.secondary_search}>
           {data?.[collectionSelected]?.collection_orders?.length ? (
             <span
@@ -127,9 +147,8 @@ const Filter = (props: props) => {
               }}
             >
               {
-                data?.[collectionSelected]?.collection_orders?.[
-                  collectionSelected
-                ]?.order_desc
+                data?.[collectionSelected]?.collection_orders?.[orderSearchVal]
+                  ?.order_desc
               }
               <img
                 src={
@@ -248,10 +267,21 @@ const Filter = (props: props) => {
                     onClick={() => {
                       const array: any = [...selectedFilter];
                       array[collectionSelected][filterVal] = filterSearchval;
-                      updateSort(array);
+                      const data = updateSort(array);
                       array[collectionSelected].sort((a: number, b: number) => {
-                        let length1 = a?.length || 0;
-                        let length2 = b?.length || 0;
+                        // let length1 = a?.length || 0;
+                        // let length2 = b?.length || 0;
+                        // return length2 - length1;
+                        const length1 =
+                          a?.filter((item: any) => {
+                            return item;
+                          })?.length || 0;
+                        const length2 =
+                          b?.filter((item: any) => {
+                            return item;
+                          })?.length || 0;
+                        console.log(a, length1, "a");
+                        console.log(b, length2, "b");
                         return length2 - length1;
                       });
                       setSelectedFilter(array);
@@ -259,7 +289,7 @@ const Filter = (props: props) => {
                       array[collectionSelected].map(
                         (item: any, index: number) => {
                           if (item?.length) {
-                            const filter = orderFilterData?.[index];
+                            const filter = data?.[index];
                             const filter_value = filter?.filter_value?.filter(
                               (item2: string, index2: number) => {
                                 if (array[collectionSelected][index][index2]) {
@@ -304,7 +334,6 @@ const Filter = (props: props) => {
                         : ""
                     }`}
                     onClick={(e) => {
-                      console.log(e);
                       const array = [...selectedFilter];
                       const length =
                         orderFilterData[index]?.filter_value?.length;
@@ -317,9 +346,20 @@ const Filter = (props: props) => {
                       }
                       updateSort(array);
                       array[collectionSelected].sort((a: number, b: number) => {
-                        let length1 = a?.length || 0;
-                        let length2 = b?.length || 0;
+                        // let length1 = a?.length || 0;
+                        // let length2 = b?.length || 0;
+                        const length1 =
+                          a?.filter((item: any) => {
+                            return item;
+                          })?.length || 0;
+                        const length2 =
+                          b?.filter((item: any) => {
+                            return item;
+                          })?.length || 0;
+                        console.log(a, length1, "a");
+                        console.log(b, length2, "b");
                         return length2 - length1;
+                        // return length2 - length1;
                       });
                       console.log(array);
                       setSelectedFilter(JSON.parse(JSON.stringify(array)));

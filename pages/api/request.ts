@@ -5,17 +5,7 @@ import {userConfig} from 'userConfig'
 declare let window: any;
 
 const ifProduct = process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_BRANCH_NAME !== 'staging';
-const request =  axios.create({
-    baseURL: ifProduct ? 
-    'https://api.mirrorworld.fun/v1/marketplace/'
-    : 'https://api-staging.mirrorworld.fun/v1/marketplace/' ,
-    headers: {
-      'X-SSO-Token': Cookies.get('sso-t') || '',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTYwOCwiZXRoX2FkZHJlc3MiOm51bGwsInNvbF9hZGRyZXNzIjoiM2J2cUppcmJyaThyd0VzbWNQalE3UGVzVkNHUzh3V2twVjcxbzloNDhvYjYiLCJlbWFpbCI6ImpvemUua29zbWVybEBnbWFpbC5jb20iLCJ3YWxsZXQiOnsiZXRoX2FkZHJlc3MiOm51bGwsInNvbF9hZGRyZXNzIjoiM2J2cUppcmJyaThyd0VzbWNQalE3UGVzVkNHUzh3V2twVjcxbzloNDhvYjYifSwiY2xpZW50X2lkIjoiYmRmYjRiMzgtMjgyZi0xMWVkLTliYzUtMGUxYmE3YWYxOTJkLmJkZmI0YjNkLm1pcnJvcndvcmxkLmZ1biIsImlhdCI6MTY2MzkxMDMzMCwiZXhwIjoxNjY2NTAyMzMwLCJqdGkiOiJhdXRoOjU2MDgifQ.4ZF58A9Qkq7IiZzGcfs7Zvd_3mHM7hDMTAUAAoVSif4',
-      'x-api-key': userConfig.xApiKey
-    },
-    
-});
+let request:any = null;
 
 
 
@@ -33,7 +23,17 @@ const getAUTH = () => {
 
 
 const requestInterception = () => {
- window.location.href = `${userConfig.loginUrl}?backurl=${window.location.href}`
+//  window.location.href = `${userConfig.loginUrl}?backurl=${window.location.href}`
+request =  axios.create({
+  baseURL: ifProduct ? 
+  'https://api.mirrorworld.fun/v1/marketplace/'
+  : 'https://api-staging.mirrorworld.fun/v1/marketplace/' ,
+  headers: {
+    // 'X-SSO-Token': Cookies.get('sso-t') || '',
+    // 'Authorization': `Bearer ${getAUTH()}`,
+    'x-api-key': userConfig.xApiKey
+  },
+});
  mirrorworld._api.client.defaults.headers.common.Authorization = `Bearer ${getAUTH()}`;
  mirrorworld._api.sso.defaults.headers.common.Authorization =  `Bearer ${getAUTH()}`;
 }

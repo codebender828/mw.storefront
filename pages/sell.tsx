@@ -76,11 +76,11 @@ const Search = () => {
   const getMsg = () => {
     switch (operationStatus) {
       case 1:
-        return `Do you want to set the price to ${router.query.price} SOL?`;
+        return `Do you want to set the price to ${price} SOL?`;
       case 2:
         return `Are you sure you want to cancel the list?`;
       case 3:
-        return `Do you want to change the price to ${router.query.price} SOL?`;
+        return `Do you want to change the price to ${price} SOL?`;
       case 4:
         return `Are you sure you want to transfer the NFT?`;
       default:
@@ -121,14 +121,29 @@ const Search = () => {
                   onClick={() => {
                     window.location.href =
                       // window.location.hostname +
-                      "/" + router?.query?.mintaddress;
+                      "/item?addr=" + router?.query?.mintaddress;
                   }}
                 />
               </p>
               <p className={styles.sell_card_info}>
-                <img src={router?.query?.imgUrl} alt="" />
+                <img src={router?.query?.imgUrl || ""} alt="" />
                 <p>{router?.query?.name}</p>
-                <p className={styles.sell_card_price}>{router?.query?.price}</p>
+                <p className={styles.sell_card_price}>
+                  <img
+                    style={{
+                      width: "14px",
+                      height: "14px",
+                      margin: "0px",
+                      display: "inline-block",
+                      position: "relative",
+                      top: "2px",
+                      // float: "left",
+                    }}
+                    src="/images/icon/solana_blue.svg"
+                    alt=""
+                  />
+                  {router?.query?.price}
+                </p>
                 <input
                   type="number"
                   placeholder="Selling Price"
@@ -212,7 +227,7 @@ const Search = () => {
                   onClick={() => {
                     window.location.href =
                       // window.location.hostname +
-                      "/" + router?.query?.mintaddress;
+                      "/item?addr=" + router?.query?.mintaddress;
                   }}
                 />
               </p>
@@ -313,7 +328,7 @@ const Search = () => {
                 setResultStatus(0);
                 window.location.href =
                   // window.location.hostname +
-                  "/" + router?.query?.mintaddress;
+                  "/item?addr=" + router?.query?.mintaddress;
               }}
             />
           </p>
@@ -335,7 +350,7 @@ const Search = () => {
                 setResultStatus(0);
                 window.location.href =
                   // window.location.hostname +
-                  "/" + router?.query?.mintaddress;
+                  "/item?addr=" + router?.query?.mintaddress;
               }}
             />
           </p>

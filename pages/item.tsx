@@ -19,22 +19,27 @@ const NftItem = () => {
   const [activity, setActivity] = useState(new Array());
   const [init, setInit] = useState(false);
   const { query } = router;
+  const getAddress = () => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return urlParams.get("addr");
+  };
   const getData = async () => {
     const res = await getNftActivities(
       // @ts-ignore
-      query?.item,
-      // "DNuacjMtuvoWYoD5PRkrnvT6qg1GmoNut3eTK34ugkB3",
+      getAddress("addr"),
       pageSize
     );
+    if (!res?.data?.data?.events) return;
     let array = [...activitylist];
-    array[pageSize] = [...res?.data?.data];
+    array[pageSize] = [...res?.data?.data?.events];
     pageSize = pageSize + 1;
     activitylist = JSON.parse(JSON.stringify(array));
-    console.log(activitylist, "ac");
     setActivity(activitylist);
     // @ts-ignore
     window.lock = false;
   };
+
   useEffect(() => {
     document.addEventListener("scroll", (e) => {
       if (!document) return;
@@ -59,11 +64,10 @@ const NftItem = () => {
     setInit(true);
     getNft(
       // @ts-ignore
-      query?.item
+      getAddress("addr")
       //"9GeknX5dxZgAV6XtYaTFsTrv1BFjLgYNKNs7egMqqDCB"
     ).then((res: any) => {
       setData(res?.data?.data);
-      console.log(res.data, "res.data");
     });
     getUser().then((res) => {
       setUserInfo(res);
@@ -75,10 +79,26 @@ const NftItem = () => {
       window.lock = true;
       getData();
     }
-  }, [query?.item]);
+  });
 
   return (
     <div className={styles["nft_item"]}>
+      <div className={styles["top_navbar"]}>
+        <img
+          src="/images/icon/arrorw/icon_arrow_up_line.svg"
+          alt=""
+          onClick={() => {
+            history.go(-1);
+          }}
+        />
+        <img
+          src="/images/icon/icon_refresh.svg"
+          alt=""
+          onClick={() => {
+            window.location.reload();
+          }}
+        />
+      </div>
       <div className={styles["info"]}>
         <img
           // @ts-ignore
@@ -91,7 +111,22 @@ const NftItem = () => {
           {/*  @ts-ignore */}
           <span>{data?.name}</span>
           {/*  @ts-ignore */}
-          <span>{data?.price || "-"}</span>
+          <span>
+            <img
+              style={{
+                width: "14px",
+                height: "14px",
+                margin: "0px",
+                display: "inline-block",
+                position: "relative",
+                top: "2px",
+              }}
+              src="/images/icon/solana_blue.svg"
+              alt=""
+            />
+            {/*  @ts-ignore */}
+            {data?.price || "-"}
+          </span>
         </p>
       </div>
       {/* <p className={styles["title"]}>In-Game Performance</p> */}
@@ -183,15 +218,20 @@ const NftItem = () => {
       </div>
       <p className={styles["title"]}>Details</p>
       <div className={styles["On_Chain"]}>
-        <div>
-          <span>Mint Address</span>
-          {/*  @ts-ignore */}
-          <span>{`${data?.mint_address?.slice(
-            0,
-            4
-            /*  @ts-ignore */
-          )}...${data?.mint_address?.slice(-4)}`}</span>
-        </div>
+        {/*  @ts-ignore */}
+        {data?.mint_address ? (
+          <div>
+            <span>Mint Address</span>
+            {/*  @ts-ignore */}
+            <span>{`${data?.mint_address?.slice(
+              0,
+              4
+              /*  @ts-ignore */
+            )}...${data?.mint_address?.slice(-4)}`}</span>
+          </div>
+        ) : (
+          ""
+        )}
         {/*  @ts-ignore */}
         {data?.token_address ? (
           <div>
@@ -206,17 +246,22 @@ const NftItem = () => {
         ) : (
           ""
         )}
-        <div>
-          <span>Owner Address</span>
-          {/*  @ts-ignore */}
-          <span>{`${data?.owner_address?.slice(
-            0,
-            4
-            /*  @ts-ignore */
-          )}...${data?.owner_address?.slice(-4)}`}</span>
-        </div>
+        {/*  @ts-ignore */}
+        {data?.owner_address ? (
+          <div>
+            <span>Owner Address</span>
+            {/*  @ts-ignore */}
+            <span>{`${data?.owner_address?.slice(
+              0,
+              4
+              /*  @ts-ignore */
+            )}...${data?.owner_address?.slice(-4)}`}</span>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
-      <p className={styles["title"]}>Activities</p>
+      {activity?.length ? <p className={styles["title"]}>Activities</p> : ""}
       {activity?.length ? (
         <div className={styles["activities"]}>
           <div className={styles["table-header"]}>

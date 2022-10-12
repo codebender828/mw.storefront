@@ -22,6 +22,7 @@ const Footer = (props: props) => {
     <div className={styles.footer}>
       {!buyModal && (
         <div>
+          {/* @ts-ignore */}
           {data?.price ? (
             <div className={styles.footer_price}>
               <img
@@ -32,6 +33,7 @@ const Footer = (props: props) => {
                   top: "2px",
                 }}
               />
+              {/* @ts-ignore */}
               {data?.price}
             </div>
           ) : (
@@ -44,7 +46,6 @@ const Footer = (props: props) => {
                 setBuyModal(true);
               } else {
                 if (data?.price) {
-                  console.log("Manage List");
                   router.push({
                     pathname: "/sell",
                     query: {
@@ -64,13 +65,23 @@ const Footer = (props: props) => {
                       mintaddress: data?.mint_address,
                     },
                   });
-                  console.log("List");
                 }
               }
             }}
+            style={
+              // @ts-ignore
+              userInfo?.sol_address === data.owner_address && !data?.price
+                ? {
+                    width: "335px",
+                    margin: "0 auto",
+                  }
+                : {}
+            }
           >
+            {/*@ts-ignore */}
             {userInfo?.sol_address === data.owner_address
-              ? data?.price
+              ? // @ts-ignore
+                data?.price
                 ? "Manage List"
                 : "List"
               : "Buy"}
@@ -87,6 +98,7 @@ const Footer = (props: props) => {
               }
               setResultStatus(1);
               try {
+                // @ts-ignore
                 const res = await buyNFT(data?.mint_address, data?.price);
                 if (res) {
                   setResultStatus(2);
@@ -128,16 +140,21 @@ const Footer = (props: props) => {
           {!resultStatus && (
             <>
               <p className={styles.avar}>
+                {/* @ts-ignore */}
                 <img src={data?.image} alt="" />
+                {/* @ts-ignore */}
                 <p>{data?.name}</p>
                 <p>Cost</p>
               </p>
               <div className={styles["skills"]}>
+                {/* @ts-ignore */}
                 {data?.attributes?.map((item: object) => {
                   return (
                     <p>
                       <img src="" alt="" />
+                      {/* @ts-ignore */}
                       <span>{item?.trait_type}</span>
+                      {/* @ts-ignore */}
                       <span>{item?.value}</span>
                     </p>
                   );

@@ -20,6 +20,7 @@ const Search: NextPage = () => {
   };
   if (!first) {
     setFirst(true);
+    // @ts-ignore
     getNftRecommend().then((res) => {
       setNftRecommend(res?.data?.data || []);
     });
@@ -48,12 +49,15 @@ const Search: NextPage = () => {
                 <p
                   className="search_page_item"
                   onClick={() => {
-                    router.push("/" + item?.mint_address);
+                    // @ts-ignore
+                    router.push("/item?addr=" + item?.mint_address);
                   }}
                 >
+                  {/* @ts-ignore */}
                   <img src={item?.image} alt="" />
                   <p
                     dangerouslySetInnerHTML={{
+                      // @ts-ignore
                       __html: item?.name.replace(
                         key,
                         `<b style="color: #386EEC;font-weight: normal">${key}</b>`
@@ -78,10 +82,13 @@ const Search: NextPage = () => {
                 <p
                   className="search_page_item"
                   onClick={() => {
-                    router.push("/" + item?.mint_address);
+                    // @ts-ignore
+                    router.push("/item?addr=" + item?.mint_address);
                   }}
                 >
+                  {/* @ts-ignore */}
                   <img src={item?.image} alt="" />
+                  {/* @ts-ignore */}
                   <p> {item?.name}</p>
                 </p>
               );
