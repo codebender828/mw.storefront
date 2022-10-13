@@ -45,7 +45,9 @@ const Home = () => {
     const data = await getCollectionNfts(param);
     // @ts-ignore
     window.lock = false;
-    if (data?.data?.data) {
+    // @ts-ignore
+    if (param.page > totalPage) return;
+    if (data?.data?.data?.nfts) {
       const listdata = data?.data?.data;
       setTotalPage(listdata?.total_page);
       // @ts-ignore
@@ -56,7 +58,7 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    document.addEventListener("scroll", (e) => {
+    const a = () => {
       if (!document) return;
       // @ts-ignore
       if (window?.lock) return;
@@ -75,7 +77,11 @@ const Home = () => {
         setQuestParam(JSON.parse(JSON.stringify(param)));
         getNFTS(param);
       }
-    });
+    };
+    document.addEventListener("scroll", a);
+    return function cleanup() {
+      document.removeEventListener("scroll", a);
+    };
   });
   if (!firstTime) {
     getCollectionInfoFunc();
@@ -139,7 +145,7 @@ const Home = () => {
           ""
         )}
       </div>
-      {questParam.page === totalPage && data?.length ? (
+      {questParam.page - 1 === totalPage && data?.length ? (
         <div className={styles.nft_list_bottom}>
           <img src="/images/icon/left.svg" alt="" />
           The Bottom
