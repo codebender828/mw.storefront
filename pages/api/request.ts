@@ -4,7 +4,7 @@ import {userConfig} from 'userConfig'
 
 declare let window: any;
 
-const ifProduct = process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_BRANCH_NAME !== 'staging';
+const ifProduct =  process.env.NEXT_PUBLIC_BRANCH_NAME === 'main';
 console.log(process.env.NODE_ENV ,'process.env.NEXT_PUBLIC_BRANCH_NAME' );
 let request:any = null;
 
