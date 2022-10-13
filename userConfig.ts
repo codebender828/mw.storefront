@@ -9,5 +9,4 @@ export const userConfig = {
   currencyOption: 'SOL',// USDC 和 SOL
   name: '',
   logo: '',
-  loginUrl: 'https://auth-staging.mirrorworld.fun?backurl="storfont.mirrorword.url"'
 }
