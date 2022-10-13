@@ -19,19 +19,24 @@ const mirrorworld = new MirrorWorld({
 
 
 const getAUTH = () => {
-  return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTYwOCwiZXRoX2FkZHJlc3MiOm51bGwsInNvbF9hZGRyZXNzIjoiM2J2cUppcmJyaThyd0VzbWNQalE3UGVzVkNHUzh3V2twVjcxbzloNDhvYjYiLCJlbWFpbCI6ImpvemUua29zbWVybEBnbWFpbC5jb20iLCJ3YWxsZXQiOnsiZXRoX2FkZHJlc3MiOm51bGwsInNvbF9hZGRyZXNzIjoiM2J2cUppcmJyaThyd0VzbWNQalE3UGVzVkNHUzh3V2twVjcxbzloNDhvYjYifSwiY2xpZW50X2lkIjoiYmRmYjRiMzgtMjgyZi0xMWVkLTliYzUtMGUxYmE3YWYxOTJkLmJkZmI0YjNkLm1pcnJvcndvcmxkLmZ1biIsImlhdCI6MTY2MzkxMDMzMCwiZXhwIjoxNjY2NTAyMzMwLCJqdGkiOiJhdXRoOjU2MDgifQ.4ZF58A9Qkq7IiZzGcfs7Zvd_3mHM7hDMTAUAAoVSif4";
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  console.log(urlParams.get("auth"), 'auth');
+  return urlParams.get("auth");
+  // return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTYwOCwiZXRoX2FkZHJlc3MiOm51bGwsInNvbF9hZGRyZXNzIjoiM2J2cUppcmJyaThyd0VzbWNQalE3UGVzVkNHUzh3V2twVjcxbzloNDhvYjYiLCJlbWFpbCI6ImpvemUua29zbWVybEBnbWFpbC5jb20iLCJ3YWxsZXQiOnsiZXRoX2FkZHJlc3MiOm51bGwsInNvbF9hZGRyZXNzIjoiM2J2cUppcmJyaThyd0VzbWNQalE3UGVzVkNHUzh3V2twVjcxbzloNDhvYjYifSwiY2xpZW50X2lkIjoiYmRmYjRiMzgtMjgyZi0xMWVkLTliYzUtMGUxYmE3YWYxOTJkLmJkZmI0YjNkLm1pcnJvcndvcmxkLmZ1biIsImlhdCI6MTY2MzkxMDMzMCwiZXhwIjoxNjY2NTAyMzMwLCJqdGkiOiJhdXRoOjU2MDgifQ.4ZF58A9Qkq7IiZzGcfs7Zvd_3mHM7hDMTAUAAoVSif4";
 }
 
 
 const requestInterception = () => {
 //  window.location.href = `${userConfig.loginUrl}?backurl=${window.location.href}`
+if(request) return;
 request =  axios.create({
   baseURL: ifProduct ? 
   'https://api.mirrorworld.fun/v1/marketplace/'
   : 'https://api-staging.mirrorworld.fun/v1/marketplace/' ,
   headers: {
     // 'X-SSO-Token': Cookies.get('sso-t') || '',
-    // 'Authorization': `Bearer ${getAUTH()}`,
+    'Authorization': `Bearer ${getAUTH()}`,
     'x-api-key': userConfig.xApiKey
   },
 });
