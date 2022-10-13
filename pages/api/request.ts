@@ -5,7 +5,7 @@ import {userConfig} from 'userConfig'
 declare let window: any;
 
 const ifProduct = process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_BRANCH_NAME !== 'staging';
-console.log(process.env.NEXT_PUBLIC_BRANCH_NAME ,'process.env.NEXT_PUBLIC_BRANCH_NAME' );
+console.log(process.env.NODE_ENV ,'process.env.NEXT_PUBLIC_BRANCH_NAME' );
 let request:any = null;
 
 
