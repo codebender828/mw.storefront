@@ -44,17 +44,21 @@ const Home = () => {
     const data = await getCollectionInfo();
     setFilterData(data?.data?.data);
   };
-  const getNFTS = async (param: object) => {
+  const getNFTS = async (param: any) => {
+    if (param.page > totalPage && param.page !== 1) return;
     const data = await getCollectionNfts(param);
     // @ts-ignore
     window.lock = false;
     // @ts-ignore
-    if (param.page > totalPage) return;
     if (data?.data?.data?.nfts) {
       const listdata = data?.data?.data;
       setTotalPage(listdata?.total_page);
       // @ts-ignore
+      if (param.page === 1) {
+        newList = [];
+      }
       newList[param.page - 1] = listdata?.nfts;
+      console.log(newList, "newList");
       setData(JSON.parse(JSON.stringify([].concat.apply([], newList))));
     } else {
       setData([]);

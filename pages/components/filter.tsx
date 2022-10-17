@@ -56,6 +56,14 @@ const Filter = (props: props) => {
     setFirstTime(true);
     getFilterData(userConfig.collections[0]);
   }
+  const getAllSelectedLength = () => {
+    const length = selectedFilter?.[collectionSelected]?.map(
+      (item: any, index: number) => {
+        return item?.filter((item: boolean) => item)?.length;
+      }
+    );
+    return length.filter((item) => item)?.length;
+  };
   const getFilterLength = (index: number) => {
     return (
       selectedFilter?.[collectionSelected]?.[index]?.filter(
@@ -104,13 +112,11 @@ const Filter = (props: props) => {
         b?.filter((item: any) => {
           return item;
         })?.length || 0;
-      console.log(a, length1, "a");
-      console.log(b, length2, "b");
       return length2 - length1;
     });
     array[collectionSelected] = JSON.parse(JSON.stringify(sortArray));
-    console.log(sortData, "orderFilterData");
-    console.log(array, "selectedFilter");
+    // console.log(sortData, "orderFilterData");
+    // console.log(array, "selectedFilter");
     setSelectedFilter(JSON.parse(JSON.stringify(array)));
     return sortData;
   };
@@ -174,6 +180,7 @@ const Filter = (props: props) => {
               }}
             >
               Filter
+              {getAllSelectedLength() ? `(${getAllSelectedLength()})` : ""}
               <img
                 src={
                   !filterSearch
@@ -352,7 +359,8 @@ const Filter = (props: props) => {
                       const length =
                         // @ts-ignore
                         orderFilterData[index]?.filter_value?.length;
-                      if (getFilterLength(index) < length) {
+                      // if (getFilterLength(index) < length) {
+                      if (!getFilterLength(index)) {
                         array[collectionSelected][index] = new Array(
                           length
                         ).fill(true);
@@ -374,12 +382,15 @@ const Filter = (props: props) => {
                         return length2 - length1;
                         // return length2 - length1;
                       });
-                      console.log(array);
                       setSelectedFilter(JSON.parse(JSON.stringify(array)));
                       searchList();
                     }}
                   >
-                    {item?.filter_name}({item?.filter_value?.length || 0})
+                    {item?.filter_name}
+                    {getFilterLength(index)
+                      ? `(${getFilterLength(index)})`
+                      : ""}
+                    {/* ({item?.filter_value?.length || 0}) */}
                     {getFilterLength(index) ? (
                       <img src="/icon_choose.svg" alt="" />
                     ) : (
