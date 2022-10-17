@@ -55,6 +55,7 @@ const Home = () => {
       setTotalPage(listdata?.total_page);
       // @ts-ignore
       if (param.page === 1) {
+        // @ts-ignore
         newList = [];
       }
       newList[param.page - 1] = listdata?.nfts;
