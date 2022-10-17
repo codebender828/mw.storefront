@@ -31,6 +31,7 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const search = (val: object, name: string) => {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
     //  @ts-ignore
     const param = JSON.parse(JSON.stringify(questParam));
     param.page = 1;
@@ -53,6 +54,7 @@ const Home = () => {
     if (data?.data?.data?.nfts) {
       const listdata = data?.data?.data;
       setTotalPage(listdata?.total_page);
+      // const newList = JSON.parse(JSON.stringify(data));
       // @ts-ignore
       if (param.page === 1) {
         // @ts-ignore
