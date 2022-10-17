@@ -21,7 +21,7 @@ const Home = () => {
     page_size: 10, // 最大 50
     order: {
       order_by: "price",
-      desc: true,
+      desc: false,
     },
     sale: 0, // 0: all, 1: for sale; 2: not for sale
     filter: [],
@@ -32,9 +32,12 @@ const Home = () => {
   const [totalPage, setTotalPage] = useState(1);
   const search = (val: object, name: string) => {
     //  @ts-ignore
-    questParam[name] = val;
-    setQuestParam(questParam);
-    getNFTS(questParam);
+    const param = JSON.parse(JSON.stringify(questParam));
+    param.page = 1;
+    param[name] = val;
+    setQuestParam(JSON.parse(JSON.stringify(param)));
+    setData([]);
+    getNFTS(param);
   };
   const getCollectionInfoFunc = async () => {
     setFirstTime(true);
@@ -145,7 +148,7 @@ const Home = () => {
           ""
         )}
       </div>
-      {questParam.page - 1 === totalPage && data?.length ? (
+      {questParam.page >= totalPage && data?.length ? (
         <div className={styles.nft_list_bottom}>
           <img src="/images/icon/left.svg" alt="" />
           The Bottom
