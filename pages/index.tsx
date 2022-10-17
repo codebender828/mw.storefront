@@ -21,7 +21,7 @@ const Home = () => {
     page_size: 10, // 最大 50
     order: {
       order_by: "price",
-      desc: true,
+      desc: false,
     },
     sale: 0, // 0: all, 1: for sale; 2: not for sale
     filter: [],
@@ -31,27 +31,37 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const search = (val: object, name: string) => {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
     //  @ts-ignore
-    questParam[name] = val;
-    setQuestParam(questParam);
-    getNFTS(questParam);
+    const param = JSON.parse(JSON.stringify(questParam));
+    param.page = 1;
+    param[name] = val;
+    setQuestParam(JSON.parse(JSON.stringify(param)));
+    setData([]);
+    getNFTS(param);
   };
   const getCollectionInfoFunc = async () => {
     setFirstTime(true);
     const data = await getCollectionInfo();
     setFilterData(data?.data?.data);
   };
-  const getNFTS = async (param: object) => {
+  const getNFTS = async (param: any) => {
+    if (param.page > totalPage && param.page !== 1) return;
     const data = await getCollectionNfts(param);
     // @ts-ignore
     window.lock = false;
     // @ts-ignore
-    if (param.page > totalPage) return;
     if (data?.data?.data?.nfts) {
       const listdata = data?.data?.data;
       setTotalPage(listdata?.total_page);
+      // const newList = JSON.parse(JSON.stringify(data));
       // @ts-ignore
+      if (param.page === 1) {
+        // @ts-ignore
+        newList = [];
+      }
       newList[param.page - 1] = listdata?.nfts;
+      console.log(newList, "newList");
       setData(JSON.parse(JSON.stringify([].concat.apply([], newList))));
     } else {
       setData([]);
@@ -145,7 +155,7 @@ const Home = () => {
           ""
         )}
       </div>
-      {questParam.page - 1 === totalPage && data?.length ? (
+      {questParam.page >= totalPage && data?.length ? (
         <div className={styles.nft_list_bottom}>
           <img src="/images/icon/left.svg" alt="" />
           The Bottom

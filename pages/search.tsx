@@ -28,12 +28,26 @@ const Search: NextPage = () => {
 
   return (
     <div className="search_page">
-      <input
-        placeholder="NFT Name"
-        onChange={(e) => {
-          searchNft(e);
-        }}
-      />
+      <div className="input_search_container">
+        <input
+          placeholder="NFT Name"
+          onChange={(e) => {
+            setKey(e.target.value || "");
+            searchNft(e);
+          }}
+          value={key}
+        ></input>
+        {key && (
+          <img
+            className="search_clear"
+            src="/images/icon/icon_delete.svg"
+            alt=""
+            onClick={() => {
+              setKey("");
+            }}
+          />
+        )}
+      </div>
       <span
         onClick={() => {
           router.push("/");
