@@ -39,7 +39,7 @@ const NftItem = () => {
     // @ts-ignore
     window.lock = false;
   };
-
+  console.log(userInfo, "userInfo");
   useEffect(() => {
     const a = () => {
       if (!document) return;
@@ -312,7 +312,9 @@ const NftItem = () => {
         ""
       )}
       {/*@ts-ignore */}
-      {!(!data?.listed && userInfo?.sol_address !== data.owner_address) ? (
+      {!(
+        !data?.listed && userInfo?.wallet?.sol_address !== data.owner_address
+      ) ? (
         <Footer data={data} userInfo={userInfo}></Footer>
       ) : (
         ""

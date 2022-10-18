@@ -43,7 +43,7 @@ const Footer = (props: props) => {
             className={styles.footer_button}
             onClick={() => {
               // @ts-ignore
-              if (userInfo?.sol_address !== data?.owner_address) {
+              if (userInfo?.wallet?.sol_address !== data?.owner_address) {
                 setBuyModal(true);
               } else {
                 if (data?.price) {
@@ -71,7 +71,8 @@ const Footer = (props: props) => {
             }}
             style={
               // @ts-ignore
-              userInfo?.sol_address === data?.owner_address && !data?.price
+              userInfo?.wallet?.sol_address === data?.owner_address &&
+              !data?.price
                 ? {
                     width: "335px",
                     margin: "0 auto",
@@ -80,7 +81,9 @@ const Footer = (props: props) => {
             }
           >
             {/*@ts-ignore */}
-            {userInfo?.sol_address === data?.owner_address
+            {/* {userInfo?.wallet?.sol_address}----------
+            {data?.owner_address}--------- */}
+            {userInfo?.wallet?.sol_address === data?.owner_address
               ? // @ts-ignore
                 data?.price
                 ? "Manage List"
