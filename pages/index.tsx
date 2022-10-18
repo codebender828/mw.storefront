@@ -26,7 +26,7 @@ const Home = () => {
     sale: 0, // 0: all, 1: for sale; 2: not for sale
     filter: [],
   });
-  const [list, setList] = useState(new Array(new Array(), new Array()));
+  // const [list, setList] = useState(new Array(new Array(), new Array()));
   const router = useRouter();
   const [data, setData] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
@@ -108,7 +108,11 @@ const Home = () => {
         }}
       >
         <Search></Search>
-        <Filter search={search} data={filterData}></Filter>
+        {filterData?.length ? (
+          <Filter search={search} data={filterData}></Filter>
+        ) : (
+          ""
+        )}
       </div>
       <div className={styles.nft_list}>
         {!data?.length && (

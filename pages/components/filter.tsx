@@ -26,6 +26,7 @@ const Filter = (props: props) => {
 
   const [filterSearch, setFilterSearch] = useState(false);
   const [filterSearchval, setFilterSearchval] = useState([]);
+  
   // single tab
   const [filterVal, setFilterVal] = useState(-1);
 
