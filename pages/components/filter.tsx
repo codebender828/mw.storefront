@@ -19,6 +19,11 @@ const Filter = (props: props) => {
   const [orderSearch, setOrderSearch] = useState(false);
   const [orderFilterData, setOrderFilterData] = useState([]);
   const [orderSearchVal, setOrderSearchVal] = useState(0);
+
+  //  0: for sale; 1: not for sale;2: all,
+  const [saleSearchVal, setSaleSearchVal] = useState(0);
+  const [showSaleSearch, setShowSaleSearch] = useState(false);
+
   const [filterSearch, setFilterSearch] = useState(false);
   const [filterSearchval, setFilterSearchval] = useState([]);
   // single tab
@@ -31,7 +36,7 @@ const Filter = (props: props) => {
 
   const [allSelectShow, setAllSelectShow] = useState(false);
   const [firstTime, setFirstTime] = useState(false);
-  const [selected, setSelected] = useState([]);
+  // const [selected, setSelected] = useState([]);
   const getFilterData = async (collection: string) => {
     const data = await getCollectionFilter(collection);
     setOrderFilterData(data?.data?.data?.filter_info);
@@ -50,6 +55,7 @@ const Filter = (props: props) => {
     setFilterSearch(false);
     setOrderSearch(false);
     setAllSelectShow(false);
+    setShowSaleSearch(false);
     setFilterVal(-1);
   };
   if (data?.length && !firstTime) {
@@ -72,22 +78,22 @@ const Filter = (props: props) => {
     );
   };
 
-  const searchList = () => {
-    const param: any[] = [];
-    selectedFilter?.[collectionSelected].map(
-      (item2: object, index2: number) => {
-        if (getFilterLength(index2)) {
-          const filter: any = orderFilterData[index2];
-          param.push({
-            filter_name: filter?.filter_name,
-            filter_type: filter?.filter_type,
-            filter_value: filter?.filter_value,
-          });
-        }
-      }
-    );
-    search(param, "filter");
-  };
+  // const searchList = () => {
+  //   const param: any[] = [];
+  //   selectedFilter?.[collectionSelected].map(
+  //     (item2: object, index2: number) => {
+  //       if (getFilterLength(index2)) {
+  //         const filter: any = orderFilterData[index2];
+  //         param.push({
+  //           filter_name: filter?.filter_name,
+  //           filter_type: filter?.filter_type,
+  //           filter_value: filter?.filter_value,
+  //         });
+  //       }
+  //     }
+  //   );
+  //   search(param, "filter");
+  // };
 
   const updateSort = (array: any) => {
     const data = JSON.parse(JSON.stringify(orderFilterData));
@@ -145,54 +151,76 @@ const Filter = (props: props) => {
           </p>
         )}
         <p className={styles.secondary_search}>
-          {/* @ts-ignore */}
-          {data?.[collectionSelected]?.collection_orders?.length ? (
-            <span
-              className={orderSearch ? styles.selected : ""}
-              onClick={() => {
-                closeAllSearch();
-                setOrderSearch(!orderSearch);
-              }}
-            >
-              {
-                // @ts-ignore
-                data?.[collectionSelected]?.collection_orders?.[orderSearchVal]
-                  ?.order_desc
-              }
-              <img
-                src={
-                  !orderSearch
-                    ? "/images/icon/arrorw/icon_arrow_down_black.svg"
-                    : "/images/icon/arrorw/icon_arrow_up.svg"
+          <p className={styles.secondary_search_nav}>
+            {data?.[collectionSelected] && (
+              <span
+                className={showSaleSearch ? styles.selected : ""}
+                onClick={() => {
+                  closeAllSearch();
+                  setShowSaleSearch(!showSaleSearch);
+                }}
+              >
+                {["For sale", "Not for sale", "All"][saleSearchVal]}
+                <img
+                  src={
+                    !showSaleSearch
+                      ? "/images/icon/arrorw/icon_arrow_down_black.svg"
+                      : "/images/icon/arrorw/icon_arrow_up.svg"
+                  }
+                  alt=""
+                />
+              </span>
+            )}
+            {/* @ts-ignore */}
+            {data?.[collectionSelected]?.collection_orders?.length ? (
+              <span
+                className={orderSearch ? styles.selected : ""}
+                onClick={() => {
+                  closeAllSearch();
+                  setOrderSearch(!orderSearch);
+                }}
+              >
+                {
+                  // @ts-ignore
+                  data?.[collectionSelected]?.collection_orders?.[
+                    orderSearchVal
+                  ]?.order_desc
                 }
-                alt=""
-              />
-            </span>
-          ) : (
-            ""
-          )}
-          {orderFilterData?.length ? (
-            <span
-              className={filterSearch ? styles.selected : ""}
-              onClick={() => {
-                closeAllSearch();
-                setFilterSearch(!filterSearch);
-              }}
-            >
-              Filter
-              {getAllSelectedLength() ? `(${getAllSelectedLength()})` : ""}
-              <img
-                src={
-                  !filterSearch
-                    ? "/images/icon/arrorw/icon_arrow_down_black.svg"
-                    : "/images/icon/arrorw/icon_arrow_up.svg"
-                }
-                alt=""
-              />
-            </span>
-          ) : (
-            ""
-          )}
+                <img
+                  src={
+                    !orderSearch
+                      ? "/images/icon/arrorw/icon_arrow_down_black.svg"
+                      : "/images/icon/arrorw/icon_arrow_up.svg"
+                  }
+                  alt=""
+                />
+              </span>
+            ) : (
+              ""
+            )}
+            {orderFilterData?.length ? (
+              <span
+                className={filterSearch ? styles.selected : ""}
+                onClick={() => {
+                  closeAllSearch();
+                  setFilterSearch(!filterSearch);
+                }}
+              >
+                Filter
+                {getAllSelectedLength() ? `(${getAllSelectedLength()})` : ""}
+                <img
+                  src={
+                    !filterSearch
+                      ? "/images/icon/arrorw/icon_arrow_down_black.svg"
+                      : "/images/icon/arrorw/icon_arrow_up.svg"
+                  }
+                  alt=""
+                />
+              </span>
+            ) : (
+              ""
+            )}
+          </p>
           {orderSearch &&
             // @ts-ignore
             data?.[collectionSelected]?.collection_orders?.length && (
@@ -237,6 +265,46 @@ const Filter = (props: props) => {
                 }
               </div>
             )}
+          {showSaleSearch && (
+            <div
+              className={styles.secondary_search_modal}
+              style={{
+                marginTop: "9px",
+              }}
+            >
+              {
+                // @ts-ignore
+                ["For sale", "Not for sale", "All"].map(
+                  (item: any, index: number) => {
+                    return (
+                      <p
+                        key={item?.order_field}
+                        className={`${styles.secondary_search_modal_item} ${
+                          saleSearchVal === index
+                            ? styles.secondary_search_modal_item_selected
+                            : ""
+                        }`}
+                        onClick={() => {
+                          console.log(
+                            (index + 1) % 3,
+                            ["For sale", "Not for sale", "All"][index]
+                          );
+                          search((index + 1) % 3, "sale");
+                          setSaleSearchVal(index);
+                          setOrderSearch(false);
+                        }}
+                      >
+                        {item}
+                        {saleSearchVal === index && (
+                          <img src="/icon_choose.svg" alt="" />
+                        )}
+                      </p>
+                    );
+                  }
+                )
+              }
+            </div>
+          )}
           {filterVal !== -1 &&
             // @ts-ignore
             orderFilterData?.[filterVal]?.filter_value?.length && (
@@ -482,16 +550,17 @@ const Filter = (props: props) => {
           </p>
         )}
       </div>
-      {(orderSearch || filterVal !== -1 || allSelectShow) && (
+      {(orderSearch || filterVal !== -1 || allSelectShow || showSaleSearch) && (
         <div
           onClick={() => {
             // if (allSelectShow) {
             //   const array: any = [...selectedFilter];
             //   array[collectionSelected][filterVal] = filterSearchval;
             // }
-            setOrderSearch(false);
-            setAllSelectShow(false);
-            setFilterVal(-1);
+            // setOrderSearch(false);
+            // setAllSelectShow(false);
+            // setFilterVal(-1);
+            closeAllSearch();
           }}
           className={styles.filter_modal}
         ></div>

@@ -27,16 +27,27 @@
   }
   .secondary_search {
     position: relative;
-    padding: 10px 20px 10px;
+    padding: 0px 20px 10px;
+    .secondary_search_nav {
+      text-align: center;
+    }
     span {
       font-weight: 400;
       font-size: 14px;
-      line-height: 21px;
+      line-height: 40px;
+      // line-height: 44px;
       color: #000000;
-      margin-right: 30px;
+      // margin-right: 28px;
     }
     span.selected {
       color: #386eec;
+    }
+    span:last-child {
+      margin-right: 0;
+      float: right;
+    }
+    span:nth-child(1) {
+      float: left;
     }
   }
   img {
