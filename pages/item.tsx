@@ -313,7 +313,8 @@ const NftItem = () => {
       )}
       {/*@ts-ignore */}
       {!(
-        !data?.listed && userInfo?.wallet?.sol_address !== data.owner_address
+        // @ts-ignore
+        (!data?.listed && userInfo?.wallet?.sol_address !== data.owner_address)
       ) ? (
         <Footer data={data} userInfo={userInfo}></Footer>
       ) : (

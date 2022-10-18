@@ -83,6 +83,7 @@ const Footer = (props: props) => {
             {/*@ts-ignore */}
             {/* {userInfo?.wallet?.sol_address}----------
             {data?.owner_address}--------- */}
+            {/* @ts-ignore */}
             {userInfo?.wallet?.sol_address === data?.owner_address
               ? // @ts-ignore
                 data?.price
