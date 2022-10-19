@@ -70,6 +70,7 @@ const Search = () => {
           setOperationStatus(0);
           setResultStatus(1);
         } catch (error) {
+          console.log(error, "stransfernft");
           setOperationStatus(0);
           setResultStatus(2);
         }
