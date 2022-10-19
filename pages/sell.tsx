@@ -293,10 +293,10 @@ const Search = () => {
                 <p
                   className={styles.submit_button}
                   style={{
-                    opacity: +price ? 1 : 0.2,
+                    opacity: price ? 1 : 0.2,
                   }}
                   onClick={() => {
-                    if (!+price) return;
+                    if (!price) return;
                     setOperationStatus(
                       router?.query?.type === "transfer" ? 4 : 1
                     );
