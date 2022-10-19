@@ -63,6 +63,7 @@ const NftItem = () => {
       if (window?.lock) {
         // @ts-ignore
         delete window?.lock;
+        pageSize = 1;
         // window?.lock = false;
       }
       document.removeEventListener("scroll", a);
@@ -82,12 +83,12 @@ const NftItem = () => {
       setUserInfo(res);
     });
     // @ts-ignore
-    if (window.lock) return;
-    if (pageSize === 1) {
-      // @ts-ignore
-      window.lock = true;
-      getData();
-    }
+    // if (window.lock) return;
+    // if (pageSize === 1) {
+    //   // @ts-ignore
+    //   window.lock = true;
+    //   getData();
+    // }
   });
 
   return (
