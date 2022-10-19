@@ -39,7 +39,6 @@ const NftItem = () => {
     // @ts-ignore
     window.lock = false;
   };
-  console.log(userInfo, "userInfo");
   useEffect(() => {
     const a = () => {
       if (!document) return;
@@ -60,6 +59,12 @@ const NftItem = () => {
     };
     document.addEventListener("scroll", a);
     return function cleanup() {
+      // @ts-ignore
+      if (window?.lock) {
+        // @ts-ignore
+        delete window?.lock;
+        // window?.lock = false;
+      }
       document.removeEventListener("scroll", a);
     };
   });

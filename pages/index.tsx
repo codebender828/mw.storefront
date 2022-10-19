@@ -23,7 +23,7 @@ const Home = () => {
       order_by: "price",
       desc: false,
     },
-    sale: 0, // 0: all, 1: for sale; 2: not for sale
+    sale: 1, // 0: all, 1: for sale; 2: not for sale
     filter: [],
   });
   // const [list, setList] = useState(new Array(new Array(), new Array()));
