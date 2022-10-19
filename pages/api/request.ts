@@ -21,6 +21,7 @@ const mirrorworld = new MirrorWorld({
 const getAUTH = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
+  window.localStorage.setItem('auth', urlParams.get("auth"))
   console.log(urlParams.get("auth"), 'auth');
   return urlParams.get("auth");
   // return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjQ5MCwiZXRoX2FkZHJlc3MiOiIweDkyZTVFODVGOTY4ZmNiN2Y5MTYzOEYzZjA4ODJCM0U3MTAyNDBEYjUiLCJzb2xfYWRkcmVzcyI6InJIcEt3RVlOQjh4WW1WdHU1V0tGc2J2aVpTekJIbnVDd0xldm56WnY0ek4iLCJlbWFpbCI6Im1pcnJvcmp1bXAwMDFAb3V0bG9vay5jb20iLCJ3YWxsZXQiOnsiZXRoX2FkZHJlc3MiOiIweDkyZTVFODVGOTY4ZmNiN2Y5MTYzOEYzZjA4ODJCM0U3MTAyNDBEYjUiLCJzb2xfYWRkcmVzcyI6InJIcEt3RVlOQjh4WW1WdHU1V0tGc2J2aVpTekJIbnVDd0xldm56WnY0ek4ifSwiY2xpZW50X2lkIjpudWxsLCJpYXQiOjE2NjU3Mjc1MTIsImV4cCI6MTY2ODMxOTUxMiwianRpIjoiYXV0aDo2NDkwIn0.n1sfGqqCoplKOVt_ezpMICemfSHPKFDWKrAk9fuCExU";
@@ -36,12 +37,12 @@ request =  axios.create({
   : 'https://api-staging.mirrorworld.fun/v1/marketplace/' ,
   headers: {
     // 'X-SSO-Token': Cookies.get('sso-t') || '',
-    'Authorization': `Bearer ${getAUTH()}`,
+    'Authorization': `Bearer ${getAUTH() || window?.localStorage?.auth}`,
     'x-api-key': userConfig.xApiKey
   },
 });
- mirrorworld._api.client.defaults.headers.common.Authorization = `Bearer ${getAUTH()}`;
- mirrorworld._api.sso.defaults.headers.common.Authorization =  `Bearer ${getAUTH()}`;
+ mirrorworld._api.client.defaults.headers.common.Authorization = `Bearer ${getAUTH()|| window?.localStorage?.auth}`;
+ mirrorworld._api.sso.defaults.headers.common.Authorization =  `Bearer ${getAUTH()|| window?.localStorage?.auth}`;
 }
 // Get collection info
 export const getCollectionInfo = async ()=>{
