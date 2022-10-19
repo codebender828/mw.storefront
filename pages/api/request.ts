@@ -21,9 +21,9 @@ const mirrorworld = new MirrorWorld({
 const getAUTH = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  window.localStorage.setItem('auth', urlParams.get("auth"))
-  console.log(urlParams.get("auth"), 'auth');
-  return urlParams.get("auth");
+  const auth = urlParams.get("auth");
+  auth && window.localStorage.setItem('auth', auth)
+  return auth;
   // return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjQ5MCwiZXRoX2FkZHJlc3MiOiIweDkyZTVFODVGOTY4ZmNiN2Y5MTYzOEYzZjA4ODJCM0U3MTAyNDBEYjUiLCJzb2xfYWRkcmVzcyI6InJIcEt3RVlOQjh4WW1WdHU1V0tGc2J2aVpTekJIbnVDd0xldm56WnY0ek4iLCJlbWFpbCI6Im1pcnJvcmp1bXAwMDFAb3V0bG9vay5jb20iLCJ3YWxsZXQiOnsiZXRoX2FkZHJlc3MiOiIweDkyZTVFODVGOTY4ZmNiN2Y5MTYzOEYzZjA4ODJCM0U3MTAyNDBEYjUiLCJzb2xfYWRkcmVzcyI6InJIcEt3RVlOQjh4WW1WdHU1V0tGc2J2aVpTekJIbnVDd0xldm56WnY0ek4ifSwiY2xpZW50X2lkIjpudWxsLCJpYXQiOjE2NjU3Mjc1MTIsImV4cCI6MTY2ODMxOTUxMiwianRpIjoiYXV0aDo2NDkwIn0.n1sfGqqCoplKOVt_ezpMICemfSHPKFDWKrAk9fuCExU";
 }
 

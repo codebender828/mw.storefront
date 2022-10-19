@@ -99,7 +99,7 @@ const NftItem = () => {
           src="/images/icon/arrorw/icon_arrow_up_line.svg"
           alt=""
           onClick={() => {
-            history.go(-1);
+            router.push("/");
           }}
         />
         <img

@@ -276,7 +276,7 @@ const Search = () => {
                   value={price}
                   style={{
                     width: "235px",
-                    borderColor: price.length > 8 ? "red" : "#f0f0f0",
+                    // borderColor: price.length > 8 ? "red" : "#f0f0f0",
                   }}
                   // onBlur={async () => {
                   //   const data = await getPrice(price);
@@ -284,8 +284,8 @@ const Search = () => {
                   // }}
                   onChange={async (e: any) => {
                     setPrice(e?.target?.value);
-                    const data = await getPrice(e.target.value);
-                    setRealPrice(data?.data?.data?.price || 0);
+                    // const data = await getPrice(e.target.value);
+                    // setRealPrice(data?.data?.data?.price || 0);
                   }}
                 />
               </p>
