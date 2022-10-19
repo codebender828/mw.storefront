@@ -146,7 +146,21 @@ const Footer = (props: props) => {
             <>
               <p className={styles.avar}>
                 <img src={data?.image} alt="" />
-                <p>{data?.name}</p>
+                <p>
+                  {" "}
+                  <img
+                    src="/images/icon/icon_Solana.svg"
+                    alt=""
+                    style={{
+                      position: "relative",
+                      top: "4px",
+                      width: "22px",
+                      height: "22px",
+                      margin: "0px",
+                    }}
+                  />
+                  {data?.price}
+                </p>
                 <p>Cost</p>
               </p>
               <div className={styles["skills"]}>

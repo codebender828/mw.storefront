@@ -154,16 +154,28 @@ const Search = () => {
                   placeholder="Selling Price"
                   value={price}
                   onChange={async (e: any) => {
-                    setPrice(e.target.value);
+                    setPrice(e?.target?.value);
                     const data = await getPrice(e.target.value);
                     setRealPrice(data?.data?.data?.price || 0);
                   }}
                   onBlur={async () => {}}
+                  style={{
+                    borderColor: price.length > 8 ? "red" : "#f0f0f0",
+                  }}
                 />
                 {realPrice ? (
-                  <p className={styles.sell_card_sell_msg}>
-                    You Will Reveive {realPrice} SOL
-                  </p>
+                  price.length <= 8 ? (
+                    <p className={styles.sell_card_sell_msg}>
+                      You Will Reveive {realPrice} SOL
+                    </p>
+                  ) : (
+                    <p
+                      className={styles.sell_card_sell_msg}
+                      style={{ color: "red" }}
+                    >
+                      Maximum 8 digits
+                    </p>
+                  )
                 ) : (
                   ""
                 )}
@@ -182,10 +194,10 @@ const Search = () => {
                 <p
                   className={styles.submit_button}
                   style={{
-                    opacity: price ? 1 : 0.2,
+                    opacity: +price ? 1 : 0.2,
                   }}
                   onClick={() => {
-                    if (!price) return;
+                    if (!+price) return;
                     setOperationStatus(1);
                   }}
                 >
@@ -204,10 +216,11 @@ const Search = () => {
                   <p
                     className={styles.submit_button}
                     style={{
-                      opacity: price && price !== router.query.price ? 1 : 0.2,
+                      opacity:
+                        +price && price !== router?.query?.price ? 1 : 0.2,
                     }}
                     onClick={() => {
-                      if (price && price !== router.query.pric) {
+                      if (+price && price !== router.query.pric) {
                         setOperationStatus(3);
                       }
                     }}
@@ -263,13 +276,14 @@ const Search = () => {
                   value={price}
                   style={{
                     width: "235px",
+                    borderColor: price.length > 8 ? "red" : "#f0f0f0",
                   }}
                   // onBlur={async () => {
                   //   const data = await getPrice(price);
                   //   setRealPrice(data?.data?.data?.price || 0);
                   // }}
                   onChange={async (e: any) => {
-                    setPrice(e.target.value);
+                    setPrice(e?.target?.value);
                     const data = await getPrice(e.target.value);
                     setRealPrice(data?.data?.data?.price || 0);
                   }}
@@ -279,11 +293,10 @@ const Search = () => {
                 <p
                   className={styles.submit_button}
                   style={{
-                    opacity: price ? 1 : 0.2,
+                    opacity: +price ? 1 : 0.2,
                   }}
                   onClick={() => {
-                    if (!price) return;
-
+                    if (!+price) return;
                     setOperationStatus(
                       router?.query?.type === "transfer" ? 4 : 1
                     );
@@ -304,10 +317,10 @@ const Search = () => {
                   <p
                     className={styles.submit_button}
                     style={{
-                      opacity: price && price !== router.query.price ? 1 : 0.2,
+                      opacity: +price && price !== router.query.price ? 1 : 0.2,
                     }}
                     onClick={() => {
-                      if (price && price !== router.query.pric) {
+                      if (+price && price !== router.query.pric) {
                         setOperationStatus(3);
                       }
                     }}
