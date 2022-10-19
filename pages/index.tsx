@@ -69,7 +69,8 @@ const Home = () => {
   };
   useEffect(() => {
     const a = () => {
-      console.log(document, window?.lock, "to bottom");
+      // @ts-ignore
+      console.log(document, window.lock, "to bottom");
       console.log(
         document.documentElement.scrollHeight -
           document.documentElement.scrollTop -
