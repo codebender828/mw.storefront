@@ -47,8 +47,9 @@ const NftItem = () => {
       if (
         !(
           document.documentElement.scrollHeight -
-          document.documentElement.scrollTop -
-          document.documentElement.clientHeight
+            document.documentElement.scrollTop -
+            document.documentElement.clientHeight <
+          3
         )
       ) {
         console.log("slide bottom");

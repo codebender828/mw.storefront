@@ -70,27 +70,26 @@ const Home = () => {
   useEffect(() => {
     const a = () => {
       // @ts-ignore
-      console.log(document, window.lock, "to bottom");
-      console.log(
-        document.documentElement.scrollHeight -
-          document.documentElement.scrollTop -
-          document.documentElement.clientHeight,
-        "bottom distance"
-      );
-      alert(
-        document.documentElement.scrollHeight -
-          document.documentElement.scrollTop -
-          document.documentElement.clientHeight
-      );
+      // console.log(document, window.lock, "to bottom");
+      // console.log(
+      //   document.documentElement.scrollHeight -
+      //     document.documentElement.scrollTop -
+      //     document.documentElement.clientHeight,
+      //   "bottom distance"
+      // );
+      // alert(
+      //   document.documentElement.scrollHeight -
+      //     document.documentElement.scrollTop -
+      //     document.documentElement.clientHeight
+      // );
       if (!document) return;
       // @ts-ignore
       if (window?.lock) return;
       if (
-        !(
-          document.documentElement.scrollHeight -
+        document.documentElement.scrollHeight -
           document.documentElement.scrollTop -
-          document.documentElement.clientHeight
-        )
+          document.documentElement.clientHeight <
+        3
       ) {
         // console.log("slide bottom");
         // @ts-ignore
