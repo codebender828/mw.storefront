@@ -255,9 +255,9 @@ const NftItem = () => {
         data?.off_chain_attribute?.length ? (
           <div className={styles["skills"]}>
             {/* @ts-ignore */}
-            {data?.off_chain_attribute?.map((item, index) => {
+            {data?.off_chain_attribute?.map((item: any, index: number) => {
               return (
-                <p>
+                <p key={index}>
                   <img
                     src={item?.image}
                     alt=""
@@ -282,9 +282,9 @@ const NftItem = () => {
         <div className={styles["skills_set"]}>
           <p>Passive Skill Set </p>
           {/* @ts-ignore */}
-          {data?.skill_attributes?.map((item, index) => {
+          {data?.skill_attributes?.map((item: any, index: number) => {
             return (
-              <div className={styles["skills_set_item"]}>
+              <div key={index} className={styles["skills_set_item"]}>
                 <img
                   src={item.image}
                   onClick={() => {
