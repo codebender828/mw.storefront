@@ -10,7 +10,7 @@ import { Divider } from "antd-mobile";
 import { relative } from "path";
 import { redirect } from "next/dist/server/api-utils";
 
-let pageSize = 1;
+// let pageSize = 1;
 let activitylist: any = [];
 
 const NftItem = () => {
@@ -20,6 +20,7 @@ const NftItem = () => {
   const [activity, setActivity] = useState(new Array());
   const [init, setInit] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
+  const [pageSize, setPageSize] = useState(1);
   const { query } = router;
   const getAddress = () => {
     const queryString = window.location.search;
@@ -36,7 +37,8 @@ const NftItem = () => {
     if (!res?.data?.data?.events) return;
     let array = [...activitylist];
     array[pageSize] = [...res?.data?.data?.events];
-    pageSize = pageSize + 1;
+    // pageSize = pageSize + 1;
+    setPageSize(pageSize + 1);
     activitylist = JSON.parse(JSON.stringify(array));
     setActivity(activitylist);
     // @ts-ignore
@@ -74,7 +76,7 @@ const NftItem = () => {
         // pageSize = 1;
         // window?.lock = false;
       }
-      pageSize = 1;
+      // pageSize = 1;
       document.removeEventListener("scroll", a);
     };
   });

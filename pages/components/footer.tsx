@@ -111,8 +111,15 @@ const Footer = (props: props) => {
                   setResultStatus(3);
                 }
               } catch (error) {
-                setResultStatus(3);
-                console.log(error);
+                if (
+                  error?.response?.data?.message ===
+                  "ERROR_INSUFFICIENT_BALANCE"
+                ) {
+                  setResultStatus(4);
+                } else {
+                  setResultStatus(3);
+                }
+                console.log(error.response.data.message, "error");
               }
             }}
           >
@@ -214,10 +221,14 @@ const Footer = (props: props) => {
               <p>Congratulations! Purchase Successful</p>
             </div>
           )}
-          {resultStatus === 3 && (
+          {(resultStatus === 3 || resultStatus === 4) && (
             <div className={styles.default_image}>
               <img src="/images/default/wrong_pic.svg"></img>
-              <p>Ops! Please Try Again</p>
+              <p>
+                {resultStatus === 4
+                  ? "Insufficient Fund"
+                  : "Ops! Please Try Again"}
+              </p>
             </div>
           )}
         </div>
