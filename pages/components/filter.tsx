@@ -63,6 +63,7 @@ const Filter = (props: props) => {
   };
   if (data?.length && !firstTime) {
     setFirstTime(true);
+    // @ts-ignore
     getFilterData(data?.[collectionSelected]?.collection);
   }
   const getAllSelectedLength = () => {
