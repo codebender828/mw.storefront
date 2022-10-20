@@ -8,6 +8,7 @@ import { getNft, getNftActivities, getUser } from "./api/request";
 import React, { useEffect, useState } from "react";
 import { Divider } from "antd-mobile";
 import { relative } from "path";
+import { redirect } from "next/dist/server/api-utils";
 
 let pageSize = 1;
 let activitylist: any = [];
@@ -18,12 +19,14 @@ const NftItem = () => {
   const [userInfo, setUserInfo] = useState({});
   const [activity, setActivity] = useState(new Array());
   const [init, setInit] = useState(false);
+  const [scrollTop, setScrollTop] = useState(0);
   const { query } = router;
   const getAddress = () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     return urlParams.get("addr");
   };
+
   const getData = async () => {
     const res = await getNftActivities(
       // @ts-ignore
@@ -41,18 +44,22 @@ const NftItem = () => {
   };
   useEffect(() => {
     const a = () => {
+      setScrollTop(document.documentElement.scrollTop);
       if (!document) return;
       // @ts-ignore
       if (window?.lock) return;
       if (
-        !(
+        document.documentElement.scrollHeight -
+          document.documentElement.scrollTop -
+          document.documentElement.clientHeight <
+        3
+      ) {
+        console.log(
+          "slide bottom",
           document.documentElement.scrollHeight -
             document.documentElement.scrollTop -
-            document.documentElement.clientHeight <
-          3
-        )
-      ) {
-        console.log("slide bottom");
+            document.documentElement.clientHeight
+        );
         // @ts-ignore
         window.lock = true;
         getData();
@@ -91,7 +98,20 @@ const NftItem = () => {
     //   getData();
     // }
   });
+  const getSelectedStatus = (name: string) => {
+    if (typeof window === "undefined") return;
+    const top = document?.querySelector(name)?.offsetTop;
+    if (top > scrollTop && top < scrollTop + 200) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
+  const anchor = (name: string) => {
+    document.documentElement.scrollTop =
+      document?.querySelector(name)?.offsetTop - 150;
+  };
   return (
     <div className={styles["nft_item"]}>
       <div className={styles["top_navbar"]}>
@@ -110,6 +130,80 @@ const NftItem = () => {
           }}
         />
       </div>
+      {scrollTop > 80 && data?.off_chain_attribute?.length ? (
+        <div className={styles["top_anchor"]}>
+          <a
+            // href="#In-Game-Performance"
+            onClick={() => {
+              anchor("#In-Game-Performance");
+            }}
+            style={
+              getSelectedStatus("#In-Game-Performance")
+                ? {
+                    color: "#386EEC",
+                    borderBottom: "3px solid #386EEC",
+                  }
+                : {}
+            }
+          >
+            In-Game Performance
+          </a>
+          <a
+            onClick={() => {
+              anchor("#On-Chain-Attribute");
+            }}
+            // href="#On-Chain-Attribute"
+            style={
+              getSelectedStatus("#On-Chain-Attribute")
+                ? {
+                    color: "#386EEC",
+                    borderBottom: "2px solid #386EEC",
+                  }
+                : {}
+            }
+          >
+            On-Chain Attribute
+          </a>
+          <a
+            onClick={() => {
+              anchor("#Details");
+            }}
+            // href="#Details"
+            style={
+              getSelectedStatus("#Details")
+                ? {
+                    color: "#386EEC",
+                    borderBottom: "2px solid #386EEC",
+                  }
+                : {}
+            }
+          >
+            Details
+          </a>
+          {activity?.length ? (
+            <a
+              onClick={() => {
+                anchor("#Activities");
+              }}
+              // href="#Activities"
+              style={
+                getSelectedStatus("#Activities")
+                  ? {
+                      color: "#386EEC",
+                      borderBottom: "2px solid #386EEC",
+                    }
+                  : {}
+              }
+            >
+              Activities
+            </a>
+          ) : (
+            ""
+          )}
+        </div>
+      ) : (
+        ""
+      )}
       <div className={styles["info"]}>
         <img
           // @ts-ignore
@@ -140,64 +234,65 @@ const NftItem = () => {
           </span>
         </p>
       </div>
-      {/* <p className={styles["title"]}>In-Game Performance</p> */}
-      {/* <div className={styles["skills"]}>
-        <p>
-          <img src="" alt="" />
-          <span>Attack</span>
-          <span>76</span>
+      {data?.off_chain_attribute?.length ? (
+        <p className={styles["title"]} id="In-Game-Performance">
+          In-Game Performance
         </p>
-        <p>
-          <img src="" alt="" />
-          <span>Defence</span>
-          <span>100</span>
-        </p>
-        <p>
-          <img src="" alt="" />
-          <span>Health</span>
-          <span>120</span>
-        </p>
-      </div> */}
-      {/* <div className={styles["skills_set"]}>
-        <p>Passive Skill Set </p>
-        <div className={styles["skills_set_item"]}>
-          <img
-            src={"/images/icon/icon_search.svg"}
-            onClick={() => {
-              router.push("/search");
-            }}
-          ></img>
-          <p>Gravitational Shatter</p>
+      ) : (
+        ""
+      )}
+      {data?.off_chain_attribute?.length ? (
+        <div className={styles["skills"]}>
+          {data?.off_chain_attribute?.map((item, index) => {
+            return (
+              <p>
+                <img
+                  src={item?.image}
+                  alt=""
+                  style={{
+                    float: "left",
+                    marginRight: "10px",
+                    width: "20px",
+                  }}
+                />
+                <span>{item?.trait_type}</span>
+                <span>{item?.value}</span>
+              </p>
+            );
+          })}
         </div>
-        <div className={styles["skills_set_item"]}>
-          <img
-            src={"/images/icon/icon_search.svg"}
-            onClick={() => {
-              router.push("/search");
-            }}
-          ></img>
-          <p>Gravitational Shatter</p>
+      ) : (
+        ""
+      )}
+      {data?.skill_attributes ? (
+        <div className={styles["skills_set"]}>
+          <p>Passive Skill Set </p>
+          {data?.skill_attributes?.map((item, index) => {
+            return (
+              <div className={styles["skills_set_item"]}>
+                <img
+                  src={item.image}
+                  onClick={() => {
+                    router.push("/search");
+                  }}
+                ></img>
+                <p
+                  style={{
+                    width: "100%",
+                  }}
+                >
+                  {item.value}
+                </p>
+              </div>
+            );
+          })}
         </div>
-        <div className={styles["skills_set_item"]}>
-          <img
-            src={"/images/icon/icon_search.svg"}
-            onClick={() => {
-              router.push("/search");
-            }}
-          ></img>
-          <p>Gravitational Shatter</p>
-        </div>
-        <div className={styles["skills_set_item"]}>
-          <img
-            src={"/images/icon/icon_search.svg"}
-            onClick={() => {
-              router.push("/search");
-            }}
-          ></img>
-          <p>Gravitational Shatter</p>
-        </div>
-      </div> */}
-      <p className={styles["title"]}>On-Chain Attribute</p>
+      ) : (
+        ""
+      )}
+      <p className={styles["title"]} id="On-Chain-Attribute">
+        On-Chain Attribute
+      </p>
       <div className={styles["On_Chain"]}>
         {/*  @ts-ignore */}
         {data?.attributes?.map((item: any) => {
@@ -225,7 +320,9 @@ const NftItem = () => {
           <span>Yuki-onna</span>
         </div> */}
       </div>
-      <p className={styles["title"]}>Details</p>
+      <p className={styles["title"]} id="Details">
+        Details
+      </p>
       <div className={styles["On_Chain"]}>
         {/*  @ts-ignore */}
         {data?.mint_address ? (
@@ -270,7 +367,13 @@ const NftItem = () => {
           ""
         )}
       </div>
-      {activity?.length ? <p className={styles["title"]}>Activities</p> : ""}
+      {activity?.length ? (
+        <p className={styles["title"]} id="Activities">
+          Activities
+        </p>
+      ) : (
+        ""
+      )}
       {activity?.length ? (
         <div className={styles["activities"]}>
           <div className={styles["table-header"]}>

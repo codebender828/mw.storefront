@@ -182,6 +182,7 @@ export const cancelNFTListing = async (mint_address: string, price: number) => {
 // transferNFT
 export const transferNFT = async ( mintAddress: string, recipientAddress: string) => {
   requestInterception();
+  console.log(mintAddress, recipientAddress)
   const transactionResult = await mirrorworld.transferNFT({
     mintAddress: mintAddress,
     recipientAddress:recipientAddress,
