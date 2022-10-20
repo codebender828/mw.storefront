@@ -30,6 +30,8 @@ const Home = () => {
   const router = useRouter();
   const [data, setData] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
+  const [scrollTop, setScrollTop] = useState(true);
+
   const search = (val: object, name: string) => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     //  @ts-ignore
@@ -87,7 +89,13 @@ const Home = () => {
       //     document.documentElement.scrollTop -
       //     document.documentElement.clientHeight
       // );
+
       if (!document) return;
+      if (document.documentElement.scrollTop < 80) {
+        setScrollTop(true);
+      } else {
+        setScrollTop(false);
+      }
       // @ts-ignore
       if (window?.lock) return;
       if (
@@ -121,9 +129,10 @@ const Home = () => {
           top: "0px",
           width: "100%",
           zIndex: 99,
+          background: "#f5f6fa",
         }}
       >
-        <Search></Search>
+        {scrollTop && <Search></Search>}
         {filterData?.length ? (
           <Filter search={search} data={filterData}></Filter>
         ) : (
@@ -131,49 +140,51 @@ const Home = () => {
         )}
       </div>
       <div className={styles.nft_list}>
-        {!data?.length && (
-          <div className={styles.no_content}>
-            <img src="/images/default/nothing_pic.svg" alt="" />
-            <p>No NFT Listed</p>
-          </div>
-        )}
-        {data?.length ? (
-          <div className={styles.nft_list_container}>
-            {data.map((item: any, index: number) => {
-              return (
-                <div
-                  key={item?.mint_address}
-                  className={styles.nft_list_item}
-                  onClick={() => {
-                    // @ts-ignore
-                    router.push("/item?addr=" + item?.mint_address);
-                  }}
-                >
-                  {/*@ts-ignore */}
-                  <img src={item?.image} alt="" />
-                  <p>
-                    <img
-                      src="/images/icon/icon_Solana.svg"
-                      alt=""
-                      style={{
-                        width: "18px",
-                        height: "18px",
-                        position: "relative",
-                        top: "3px",
-                      }}
-                    />
+        <div>
+          {!data?.length && (
+            <div className={styles.no_content}>
+              <img src="/images/default/nothing_pic.svg" alt="" />
+              <p>No NFT Listed</p>
+            </div>
+          )}
+          {data?.length ? (
+            <div className={styles.nft_list_container}>
+              {data.map((item: any, index: number) => {
+                return (
+                  <div
+                    key={item?.mint_address}
+                    className={styles.nft_list_item}
+                    onClick={() => {
+                      // @ts-ignore
+                      router.push("/item?addr=" + item?.mint_address);
+                    }}
+                  >
                     {/*@ts-ignore */}
-                    {item?.price || "-"}
-                  </p>
-                  {/*@ts-ignore */}
-                  <p>{item?.name || "-"}</p>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          ""
-        )}
+                    <img src={item?.image} alt="" />
+                    <p>
+                      <img
+                        src="/images/icon/icon_Solana.svg"
+                        alt=""
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          position: "relative",
+                          top: "3px",
+                        }}
+                      />
+                      {/*@ts-ignore */}
+                      {item?.price || "-"}
+                    </p>
+                    {/*@ts-ignore */}
+                    <p>{item?.name || "-"}</p>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
       {questParam.page >= totalPage && data?.length ? (
         <div className={styles.nft_list_bottom}>

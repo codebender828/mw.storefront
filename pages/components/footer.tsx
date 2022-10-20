@@ -21,7 +21,7 @@ const Footer = (props: props) => {
   return (
     <div className={styles.footer}>
       {!buyModal && (
-        <div>
+        <div className={styles.footer_container}>
           {/* @ts-ignore */}
           {data?.price ? (
             <div className={styles.footer_price}>
@@ -30,7 +30,10 @@ const Footer = (props: props) => {
                 alt=""
                 style={{
                   position: "relative",
-                  top: "2px",
+                  top: "4px",
+                  width: "22px",
+                  height: "22px",
+                  margin: "0px",
                 }}
               />
               {/* @ts-ignore */}
@@ -135,21 +138,23 @@ const Footer = (props: props) => {
       {buyModal && (
         <div className={styles.buymodal}>
           <p className={styles.rectangle}></p>
-          <p className={styles.module_title}>
-            Buy
-            <img
-              style={{
-                float: "right",
-                marginTop: "10px",
-              }}
-              src="/function.svg"
-              alt=""
-              onClick={() => {
-                setBuyModal(false);
-                setResultStatus(0);
-              }}
-            />
-          </p>
+          {resultStatus !== 4 && (
+            <p className={styles.module_title}>
+              Buy
+              <img
+                style={{
+                  float: "right",
+                  marginTop: "10px",
+                }}
+                src="/function.svg"
+                alt=""
+                onClick={() => {
+                  setBuyModal(false);
+                  setResultStatus(0);
+                }}
+              />
+            </p>
+          )}
 
           {!resultStatus && (
             <>

@@ -209,6 +209,9 @@ const Filter = (props: props) => {
                   closeAllSearch();
                   setFilterSearch(!filterSearch);
                 }}
+                style={{
+                  color: getAllSelectedLength() ? "#386EEC" : "",
+                }}
               >
                 Filter
                 {getAllSelectedLength() ? `(${getAllSelectedLength()})` : ""}
@@ -231,7 +234,7 @@ const Filter = (props: props) => {
               <div
                 className={styles.secondary_search_modal}
                 style={{
-                  marginTop: "9px",
+                  marginTop: "0px",
                 }}
               >
                 {
@@ -273,7 +276,7 @@ const Filter = (props: props) => {
             <div
               className={styles.secondary_search_modal}
               style={{
-                marginTop: "9px",
+                marginTop: "0px",
               }}
             >
               {
@@ -296,6 +299,7 @@ const Filter = (props: props) => {
                           search((index + 1) % 3, "sale");
                           setSaleSearchVal(index);
                           setOrderSearch(false);
+                          setShowSaleSearch(false);
                         }}
                       >
                         {item}
@@ -411,9 +415,9 @@ const Filter = (props: props) => {
             <div
               className={styles.secondary_search_modal}
               style={{
-                borderRadius: "0px",
-                padding: "10px 0px 0px",
-                marginTop: "10px",
+                // borderRadius: "0px",
+                padding: "10px 0px 10px",
+                marginTop: "46px",
               }}
             >
               {/* filter四级导航 */}
@@ -481,11 +485,13 @@ const Filter = (props: props) => {
           <p
             className={styles.tertiary_search}
             style={{
-              marginTop: allSelectShow ? "-36px" : "0px",
+              marginTop: "0px",
             }}
           >
             <p className={styles.tertiary_container}>
-              {!allSelectShow &&
+              {
+                // !allSelectShow
+                //  &&
                 orderFilterData?.map((item: any, index: number) => {
                   return (
                     <span
@@ -509,6 +515,14 @@ const Filter = (props: props) => {
                         }
                         setFilterVal(index);
                       }}
+                      style={
+                        item?.selectedCount
+                          ? {
+                              color: "#386EEC",
+                              background: "rgba(56, 110, 236, 0.1)",
+                            }
+                          : {}
+                      }
                     >
                       {item?.filter_name}
                       {item?.selectedCount ? `(${item?.selectedCount})` : ""}
@@ -518,11 +532,15 @@ const Filter = (props: props) => {
                             ? "/images/icon/arrorw/icon_arrow_down_black.svg"
                             : "/images/icon/arrorw/icon_arrow_up.svg"
                         }
+                        style={{
+                          opacity: 0.4,
+                        }}
                         alt=""
                       />
                     </span>
                   );
-                })}
+                })
+              }
               <span
                 className={styles.all_select}
                 onClick={() => {
@@ -543,10 +561,10 @@ const Filter = (props: props) => {
                   src="/images/more.svg"
                   alt=""
                   style={{
-                    opacity:
+                    display:
                       orderSearch || filterVal !== -1 || allSelectShow
-                        ? 0.3
-                        : 1,
+                        ? "none"
+                        : "block",
                   }}
                 />
               </span>
@@ -557,18 +575,27 @@ const Filter = (props: props) => {
       {(orderSearch || filterVal !== -1 || allSelectShow || showSaleSearch) && (
         <div
           onClick={() => {
-            // if (allSelectShow) {
-            //   const array: any = [...selectedFilter];
-            //   array[collectionSelected][filterVal] = filterSearchval;
-            // }
             // setOrderSearch(false);
             // setAllSelectShow(false);
             // setFilterVal(-1);
             closeAllSearch();
+            if (allSelectShow) {
+              setFilterSearch(true);
+              // setOrderSearch(true);
+              // const array: any = [...selectedFilter];
+              // array[collectionSelected][filterVal] = filterSearchval;
+            }
           }}
           className={styles.filter_modal}
         ></div>
       )}
+      {/* <div
+        style={{
+          height: "20px",
+          background: "#ffffff",
+          borderRadius: "20px 20px 0px 0px",
+        }}
+      ></div> */}
     </div>
   );
 };
