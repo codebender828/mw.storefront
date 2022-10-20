@@ -97,6 +97,7 @@ const Footer = (props: props) => {
         </div>
       )}
       {(buyModal || resultStatus === 2 || resultStatus === 3) &&
+        resultStatus !== 4 &&
         resultStatus !== 1 && (
           <div
             className={styles.footer_button_buy}
@@ -138,23 +139,21 @@ const Footer = (props: props) => {
       {buyModal && (
         <div className={styles.buymodal}>
           <p className={styles.rectangle}></p>
-          {resultStatus !== 4 && (
-            <p className={styles.module_title}>
-              Buy
-              <img
-                style={{
-                  float: "right",
-                  marginTop: "10px",
-                }}
-                src="/function.svg"
-                alt=""
-                onClick={() => {
-                  setBuyModal(false);
-                  setResultStatus(0);
-                }}
-              />
-            </p>
-          )}
+          <p className={styles.module_title}>
+            Buy
+            <img
+              style={{
+                float: "right",
+                marginTop: "10px",
+              }}
+              src="/function.svg"
+              alt=""
+              onClick={() => {
+                setBuyModal(false);
+                setResultStatus(0);
+              }}
+            />
+          </p>
 
           {!resultStatus && (
             <>
