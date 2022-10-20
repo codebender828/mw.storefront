@@ -43,7 +43,12 @@ const Home = () => {
   const getCollectionInfoFunc = async () => {
     setFirstTime(true);
     const data = await getCollectionInfo();
+    const param = JSON.parse(JSON.stringify(questParam));
+    param.page = 1;
+    param["collection"] = data?.data?.data?.[0].collection;
+    setQuestParam(JSON.parse(JSON.stringify(param)));
     setFilterData(data?.data?.data);
+    getNFTS(param);
   };
   const getNFTS = async (param: any) => {
     if (param.page > totalPage && param.page !== 1) return;
@@ -107,7 +112,6 @@ const Home = () => {
   });
   if (!firstTime) {
     getCollectionInfoFunc();
-    getNFTS(questParam);
   }
   return (
     <div>

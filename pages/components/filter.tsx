@@ -26,7 +26,7 @@ const Filter = (props: props) => {
 
   const [filterSearch, setFilterSearch] = useState(false);
   const [filterSearchval, setFilterSearchval] = useState([]);
-  
+
   // single tab
   const [filterVal, setFilterVal] = useState(-1);
 
@@ -49,8 +49,10 @@ const Filter = (props: props) => {
       setCollectionSelected(0);
       return;
     }
+    console.log(item, index);
     setCollectionSelected(index);
-    search(item?.collection);
+    getFilterData(item?.collection);
+    search(item?.collection, "collection");
   };
   const closeAllSearch = () => {
     setFilterSearch(false);
@@ -61,7 +63,7 @@ const Filter = (props: props) => {
   };
   if (data?.length && !firstTime) {
     setFirstTime(true);
-    getFilterData(userConfig.collections[0]);
+    getFilterData(data?.[collectionSelected]?.collection);
   }
   const getAllSelectedLength = () => {
     const length = selectedFilter?.[collectionSelected]?.map(
