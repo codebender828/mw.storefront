@@ -100,6 +100,7 @@ const NftItem = () => {
   });
   const getSelectedStatus = (name: string) => {
     if (typeof window === "undefined") return;
+    // @ts-ignore
     const top = document?.querySelector(name)?.offsetTop;
     if (top > scrollTop && top < scrollTop + 200) {
       return true;
@@ -110,6 +111,7 @@ const NftItem = () => {
 
   const anchor = (name: string) => {
     document.documentElement.scrollTop =
+      // @ts-ignore
       document?.querySelector(name)?.offsetTop - 150;
   };
   return (
@@ -130,64 +132,34 @@ const NftItem = () => {
           }}
         />
       </div>
-      {scrollTop > 80 && data?.off_chain_attribute?.length ? (
-        <div className={styles["top_anchor"]}>
-          <a
-            // href="#In-Game-Performance"
-            onClick={() => {
-              anchor("#In-Game-Performance");
-            }}
-            style={
-              getSelectedStatus("#In-Game-Performance")
-                ? {
-                    color: "#386EEC",
-                    borderBottom: "3px solid #386EEC",
-                  }
-                : {}
-            }
-          >
-            In-Game Performance
-          </a>
-          <a
-            onClick={() => {
-              anchor("#On-Chain-Attribute");
-            }}
-            // href="#On-Chain-Attribute"
-            style={
-              getSelectedStatus("#On-Chain-Attribute")
-                ? {
-                    color: "#386EEC",
-                    borderBottom: "2px solid #386EEC",
-                  }
-                : {}
-            }
-          >
-            On-Chain Attribute
-          </a>
-          <a
-            onClick={() => {
-              anchor("#Details");
-            }}
-            // href="#Details"
-            style={
-              getSelectedStatus("#Details")
-                ? {
-                    color: "#386EEC",
-                    borderBottom: "2px solid #386EEC",
-                  }
-                : {}
-            }
-          >
-            Details
-          </a>
-          {activity?.length ? (
+
+      {
+        // @ts-ignore
+        scrollTop > 80 && data?.off_chain_attribute?.length ? (
+          <div className={styles["top_anchor"]}>
+            <a
+              // href="#In-Game-Performance"
+              onClick={() => {
+                anchor("#In-Game-Performance");
+              }}
+              style={
+                getSelectedStatus("#In-Game-Performance")
+                  ? {
+                      color: "#386EEC",
+                      borderBottom: "3px solid #386EEC",
+                    }
+                  : {}
+              }
+            >
+              In-Game Performance
+            </a>
             <a
               onClick={() => {
-                anchor("#Activities");
+                anchor("#On-Chain-Attribute");
               }}
-              // href="#Activities"
+              // href="#On-Chain-Attribute"
               style={
-                getSelectedStatus("#Activities")
+                getSelectedStatus("#On-Chain-Attribute")
                   ? {
                       color: "#386EEC",
                       borderBottom: "2px solid #386EEC",
@@ -195,15 +167,49 @@ const NftItem = () => {
                   : {}
               }
             >
-              Activities
+              On-Chain Attribute
             </a>
-          ) : (
-            ""
-          )}
-        </div>
-      ) : (
-        ""
-      )}
+            <a
+              onClick={() => {
+                anchor("#Details");
+              }}
+              // href="#Details"
+              style={
+                getSelectedStatus("#Details")
+                  ? {
+                      color: "#386EEC",
+                      borderBottom: "2px solid #386EEC",
+                    }
+                  : {}
+              }
+            >
+              Details
+            </a>
+            {activity?.length ? (
+              <a
+                onClick={() => {
+                  anchor("#Activities");
+                }}
+                // href="#Activities"
+                style={
+                  getSelectedStatus("#Activities")
+                    ? {
+                        color: "#386EEC",
+                        borderBottom: "2px solid #386EEC",
+                      }
+                    : {}
+                }
+              >
+                Activities
+              </a>
+            ) : (
+              ""
+            )}
+          </div>
+        ) : (
+          ""
+        )
+      }
       <div className={styles["info"]}>
         <img
           // @ts-ignore
@@ -234,39 +240,48 @@ const NftItem = () => {
           </span>
         </p>
       </div>
-      {data?.off_chain_attribute?.length ? (
-        <p className={styles["title"]} id="In-Game-Performance">
-          In-Game Performance
-        </p>
-      ) : (
-        ""
-      )}
-      {data?.off_chain_attribute?.length ? (
-        <div className={styles["skills"]}>
-          {data?.off_chain_attribute?.map((item, index) => {
-            return (
-              <p>
-                <img
-                  src={item?.image}
-                  alt=""
-                  style={{
-                    float: "left",
-                    marginRight: "10px",
-                    width: "20px",
-                  }}
-                />
-                <span>{item?.trait_type}</span>
-                <span>{item?.value}</span>
-              </p>
-            );
-          })}
-        </div>
-      ) : (
-        ""
-      )}
+      {
+        // @ts-ignore
+        data?.off_chain_attribute?.length ? (
+          <p className={styles["title"]} id="In-Game-Performance">
+            In-Game Performance
+          </p>
+        ) : (
+          ""
+        )
+      }
+      {
+        // @ts-ignore
+        data?.off_chain_attribute?.length ? (
+          <div className={styles["skills"]}>
+            {/* @ts-ignore */}
+            {data?.off_chain_attribute?.map((item, index) => {
+              return (
+                <p>
+                  <img
+                    src={item?.image}
+                    alt=""
+                    style={{
+                      float: "left",
+                      marginRight: "10px",
+                      width: "20px",
+                    }}
+                  />
+                  <span>{item?.trait_type}</span>
+                  <span>{item?.value}</span>
+                </p>
+              );
+            })}
+          </div>
+        ) : (
+          ""
+        )
+      }
+      {/* @ts-ignore */}
       {data?.skill_attributes ? (
         <div className={styles["skills_set"]}>
           <p>Passive Skill Set </p>
+          {/* @ts-ignore */}
           {data?.skill_attributes?.map((item, index) => {
             return (
               <div className={styles["skills_set_item"]}>
