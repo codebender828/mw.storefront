@@ -1,8 +1,7 @@
 export const userConfig = {
   collections :[
     // "B36imhYgrNJcD7FqJxRGzxsjDpTSjciNoL9sSAMGGn6c", 
-    "DUuMbpmH3oiREntViXfGZhrLMbVcYBwGeBa4Wn9X8QfM",
-    "BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL"
+    "DUuMbpmH3oiREntViXfGZhrLMbVcYBwGeBa4Wn9X8QfM"
     // "Sw5dRtqE3zL59sLdBbGkHwM8WQ7V5zBPbVW6FjPmDJC"
   ],
   xApiKey: 'mw_testAmRKdRbBsBbIAw3CeMqS9GORmcG5BRUCU4D',
