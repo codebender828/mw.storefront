@@ -221,7 +221,7 @@ const Search = () => {
                         +price && price !== router?.query?.price ? 1 : 0.2,
                     }}
                     onClick={() => {
-                      if (+price && price !== router.query.pric) {
+                      if (+price && price !== router.query.price) {
                         setOperationStatus(3);
                       }
                     }}
