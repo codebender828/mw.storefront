@@ -71,9 +71,10 @@ const NftItem = () => {
       if (window?.lock) {
         // @ts-ignore
         delete window?.lock;
-        pageSize = 1;
+        // pageSize = 1;
         // window?.lock = false;
       }
+      pageSize = 1;
       document.removeEventListener("scroll", a);
     };
   });
