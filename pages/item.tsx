@@ -287,9 +287,9 @@ const NftItem = () => {
               <div key={index} className={styles["skills_set_item"]}>
                 <img
                   src={item.image}
-                  onClick={() => {
-                    router.push("/search");
-                  }}
+                  // onClick={() => {
+                  //   router.push("/search");
+                  // }}
                 ></img>
                 <p
                   style={{
