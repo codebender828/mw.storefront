@@ -123,19 +123,19 @@ const Home = () => {
   if (!firstTime) {
     getCollectionInfoFunc();
   }
-  useEffect(() => {
-    console.log(data.length, listHeight?.length, "data");
-    if (listHeight?.length >= data.length - 1) return;
-    if (document?.getElementsByClassName("2datalist")?.[0]?.clientHeight) {
-      const list = JSON.parse(JSON.stringify(listHeight));
-      for (let i = 0; i < data.length; i += 2) {
-        list[i] =
-          document?.getElementsByClassName(`${i}datalist`)?.[0]?.clientHeight -
-          10;
-        setListHeight(JSON.parse(JSON.stringify(list)));
-      }
-    }
-  });
+  // useEffect(() => {
+  //   console.log(data.length, listHeight?.length, "data");
+  //   if (listHeight?.length >= data.length - 1) return;
+  //   if (document?.getElementsByClassName("2datalist")?.[0]?.clientHeight) {
+  //     const list = JSON.parse(JSON.stringify(listHeight));
+  //     for (let i = 0; i < data.length; i += 2) {
+  //       list[i] =
+  //         document?.getElementsByClassName(`${i}datalist`)?.[0]?.clientHeight -
+  //         10;
+  //       setListHeight(JSON.parse(JSON.stringify(list)));
+  //     }
+  //   }
+  // });
   return (
     <div>
       <div
@@ -165,123 +165,124 @@ const Home = () => {
           {data?.length ? (
             <div className={styles.nft_list_container}>
               {data.map((item: any, index: number) => {
-                if (index === data.length - 1 && index % 2 === 0) {
-                  return (
-                    <div
-                      // @ts-ignore
-                      key={data[index]?.mint_address}
-                      className={index + "datalist"}
-                      style={{
-                        overflow: "hidden",
-                      }}
-                    >
-                      <div
-                        key={item?.mint_address}
-                        className={styles.nft_list_item}
-                        onClick={() => {
-                          // @ts-ignore
-                          router.push("/item?addr=" + item?.mint_address);
-                        }}
-                      >
-                        {/*@ts-ignore */}
-                        <img src={item?.image} alt="" />
-                        <p>
-                          <img
-                            src="/images/icon/icon_Solana.svg"
-                            alt=""
-                            style={{
-                              width: "18px",
-                              height: "18px",
-                              position: "relative",
-                              top: "3px",
-                            }}
-                          />
-                          {/*@ts-ignore */}
-                          {item?.price || "-"}
-                        </p>
-                        {/*@ts-ignore */}
-                        <p>{item?.name || "-"}</p>
-                      </div>
-                    </div>
-                  );
-                }
-                if (!(index % 2 === 0)) return;
+                // if (index === data.length - 1 && index % 2 === 0) {
                 return (
+                  // <div
+                  //   // @ts-ignore
+                  //   key={item?.mint_address}
+                  //   className={index + "datalist"}
+                  //   style={{
+                  //     overflow: "hidden",
+                  //   }}
+                  // >
                   <div
-                    className={index + "datalist"}
-                    style={{
-                      overflow: "hidden",
+                    key={item?.mint_address}
+                    className={styles.nft_list_item}
+                    onClick={() => {
+                      // @ts-ignore
+                      router.push("/item?addr=" + item?.mint_address);
                     }}
-                    // @ts-ignore
-                    key={data[index]?.mint_address}
                   >
-                    <div
-                      // @ts-ignore
-                      key={data[index]?.mint_address}
-                      className={styles.nft_list_item}
-                      onClick={() => {
-                        // @ts-ignore
-                        router.push("/item?addr=" + data[index]?.mint_address);
-                      }}
-                      style={{
-                        height: listHeight[index],
-                      }}
-                    >
+                    {/*@ts-ignore */}
+                    <img src={item?.image} alt="" />
+                    <p>
+                      <img
+                        src="/images/icon/icon_Solana.svg"
+                        alt=""
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          position: "relative",
+                          top: "3px",
+                        }}
+                      />
                       {/*@ts-ignore */}
-                      <img src={data[index]?.image} alt="" />
-                      <p>
-                        <img
-                          src="/images/icon/icon_Solana.svg"
-                          alt=""
-                          style={{
-                            width: "18px",
-                            height: "18px",
-                            position: "relative",
-                            top: "3px",
-                          }}
-                        />
-                        {/*@ts-ignore */}
-                        {data[index]?.price || "-"}
-                      </p>
-                      {/*@ts-ignore */}
-                      <p>{data[index]?.name || "-"}</p>
-                    </div>
-                    <div
-                      style={{
-                        height: listHeight[index],
-                      }}
-                      // @ts-ignore
-                      key={data[index + 1]?.mint_address}
-                      className={styles.nft_list_item}
-                      onClick={() => {
-                        // @ts-ignore
-                        router.push(
-                          // @ts-ignore
-                          "/item?addr=" + data[index + 1]?.mint_address
-                        );
-                      }}
-                    >
-                      {/*@ts-ignore */}
-                      <img src={data[index + 1]?.image} alt="" />
-                      <p>
-                        <img
-                          src="/images/icon/icon_Solana.svg"
-                          alt=""
-                          style={{
-                            width: "18px",
-                            height: "18px",
-                            position: "relative",
-                            top: "3px",
-                          }}
-                        />
-                        {/*@ts-ignore */}
-                        {data[index + 1]?.price || "-"}
-                      </p>
-                      {/*@ts-ignore */}
-                      <p>{data[index + 1]?.name || "-"}</p>
-                    </div>
+                      {item?.price || "-"}
+                    </p>
+                    {/*@ts-ignore */}
+                    <p>{item?.name.split("#")[0] || "-"}</p>
+                    <p>#{item?.name.split("#")[1] || "-"}</p>
                   </div>
+                  // </div>
                 );
+                // }
+                // if (!(index % 2 === 0)) return;
+                // return (
+                //   <div
+                //     className={index + "datalist"}
+                //     style={{
+                //       overflow: "hidden",
+                //     }}
+                //     // @ts-ignore
+                //     key={data[index]?.mint_address}
+                //   >
+                //     <div
+                //       // @ts-ignore
+                //       key={data[index]?.mint_address}
+                //       className={styles.nft_list_item}
+                //       onClick={() => {
+                //         // @ts-ignore
+                //         router.push("/item?addr=" + data[index]?.mint_address);
+                //       }}
+                //       // style={{
+                //       //   height: listHeight[index],
+                //       // }}
+                //     >
+                //       {/*@ts-ignore */}
+                //       <img src={data[index]?.image} alt="" />
+                //       <p>
+                //         <img
+                //           src="/images/icon/icon_Solana.svg"
+                //           alt=""
+                //           style={{
+                //             width: "18px",
+                //             height: "18px",
+                //             position: "relative",
+                //             top: "3px",
+                //           }}
+                //         />
+                //         {/*@ts-ignore */}
+                //         {data[index]?.price || "-"}
+                //       </p>
+                //       {/*@ts-ignore */}
+                //       <p>{data[index]?.name || "-"}</p>
+                //     </div>
+                //     <div
+                //       // style={{
+                //       //   height: listHeight[index],
+                //       // }}
+                //       // @ts-ignore
+                //       key={data[index + 1]?.mint_address}
+                //       className={styles.nft_list_item}
+                //       onClick={() => {
+                //         // @ts-ignore
+                //         router.push(
+                //           // @ts-ignore
+                //           "/item?addr=" + data[index + 1]?.mint_address
+                //         );
+                //       }}
+                //     >
+                //       {/*@ts-ignore */}
+                //       <img src={data[index + 1]?.image} alt="" />
+                //       <p>
+                //         <img
+                //           src="/images/icon/icon_Solana.svg"
+                //           alt=""
+                //           style={{
+                //             width: "18px",
+                //             height: "18px",
+                //             position: "relative",
+                //             top: "3px",
+                //           }}
+                //         />
+                //         {/*@ts-ignore */}
+                //         {data[index + 1]?.price || "-"}
+                //       </p>
+                //       {/*@ts-ignore */}
+                //       <p>{data[index + 1]?.name || "-"}</p>
+                //     </div>
+                //   </div>
+                // );
               })}
             </div>
           ) : (

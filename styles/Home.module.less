@@ -169,13 +169,17 @@
       color: #000000;
       margin-left: 7px;
     }
-    p:nth-child(3) {
+    p:nth-child(3),
+    p:nth-child(4) {
       font-weight: 400;
       font-size: 14px;
       line-height: 17px;
       color: #000000;
       opacity: 0.5;
       margin-left: 7px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
   .nft_list_item:nth-child(2n) {
