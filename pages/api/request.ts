@@ -13,7 +13,7 @@ import { MirrorWorld, ClusterEnvironment } from "@mirrorworld/web3.js"
 
 const mirrorworld = new MirrorWorld({
   apiKey: userConfig.xApiKey,
-  env: !ifProduct ? ClusterEnvironment.testnet :ClusterEnvironment.mainnet, // Can be ClusterEnvionment.mainnet for mainnet
+  env: !ifProduct ? ClusterEnvironment.testnet : ClusterEnvironment.mainnet, // Can be ClusterEnvionment.mainnet for mainnet
 })
 
 
