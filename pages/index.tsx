@@ -31,7 +31,7 @@ const Home = () => {
   const router = useRouter();
   const [data, setData] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
-  const [scrollTop, setScrollTop] = useState(true);
+  const [scrollTop, setScrollTop] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const search = (val: object, name: string) => {

@@ -105,7 +105,7 @@ const NftItem = () => {
     if (typeof window === "undefined") return;
     // @ts-ignore
     const top = document?.querySelector(name)?.offsetTop;
-    if (top > scrollTop && top < scrollTop + 200) {
+    if (top > scrollTop + 200 && top < scrollTop + 350) {
       return true;
     } else {
       return false;
@@ -115,7 +115,7 @@ const NftItem = () => {
   const anchor = (name: string) => {
     document.documentElement.scrollTop =
       // @ts-ignore
-      document?.querySelector(name)?.offsetTop - 150;
+      document?.querySelector(name)?.offsetTop - 250;
   };
   return (
     <div className={styles["nft_item"]}>

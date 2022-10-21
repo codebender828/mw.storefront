@@ -5,7 +5,6 @@ import {userConfig} from 'userConfig'
 declare let window: any;
 
 const ifProduct =  process.env.NEXT_PUBLIC_BRANCH_NAME === 'main';
-console.log(process.env.NODE_ENV ,'process.env.NEXT_PUBLIC_BRANCH_NAME' );
 let request:any = null;
 
 
@@ -14,7 +13,7 @@ import { MirrorWorld, ClusterEnvironment } from "@mirrorworld/web3.js"
 
 const mirrorworld = new MirrorWorld({
   apiKey: userConfig.xApiKey,
-  env: ClusterEnvironment.testnet, // Can be ClusterEnvionment.mainnet for mainnet
+  env: !ifProduct ? ClusterEnvironment.testnet :ClusterEnvironment.mainnet, // Can be ClusterEnvionment.mainnet for mainnet
 })
 
 
