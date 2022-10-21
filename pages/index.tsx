@@ -168,6 +168,8 @@ const Home = () => {
                 if (index === data.length - 1 && index % 2 === 0) {
                   return (
                     <div
+                      // @ts-ignore
+                      key={data[index]?.mint_address}
                       className={index + "datalist"}
                       style={{
                         overflow: "hidden",
@@ -210,6 +212,8 @@ const Home = () => {
                     style={{
                       overflow: "hidden",
                     }}
+                    // @ts-ignore
+                    key={data[index]?.mint_address}
                   >
                     <div
                       // @ts-ignore
