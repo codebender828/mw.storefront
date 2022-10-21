@@ -99,12 +99,8 @@ const Home = () => {
       // );
 
       if (!document) return;
-      console.log(
-        document?.querySelector("#filter").offsetTop,
-        document.documentElement.scrollTop,
-        "123123"
-      );
       if (
+        // @ts-ignore
         document?.querySelector("#filter").offsetTop <
         document.documentElement.scrollTop
       ) {
