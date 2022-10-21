@@ -118,210 +118,223 @@ const NftItem = () => {
       document?.querySelector(name)?.offsetTop - 250;
   };
   return (
-    <div className={styles["nft_item"]}>
-      <div className={styles["top_navbar"]}>
+    <>
+      {/* @ts-ignore */}
+      {!data?.name && (
         <img
-          src="/images/icon/arrorw/icon_arrow_up_line.svg"
+          src="/images/void.png"
           alt=""
-          onClick={() => {
-            router.push("/");
+          style={{
+            width: "100%",
+            marginTop: "40px",
           }}
         />
-        <img
-          src="/images/icon/icon_refresh.svg"
-          alt=""
-          onClick={() => {
-            window.location.reload();
-          }}
-        />
-      </div>
-
-      {
-        // @ts-ignore
-        scrollTop > 80 && data?.off_chain_attribute?.length ? (
-          <div className={styles["top_anchor"]}>
-            <a
-              // href="#In-Game-Performance"
+      )}
+      {/* @ts-ignore */}
+      {data?.name && (
+        <div className={styles["nft_item"]}>
+          <div className={styles["top_navbar"]}>
+            <img
+              src="/images/icon/arrorw/icon_arrow_up_line.svg"
+              alt=""
               onClick={() => {
-                anchor("#In-Game-Performance");
+                router.push("/");
               }}
-              style={
-                getSelectedStatus("#In-Game-Performance")
-                  ? {
-                      color: "#386EEC",
-                      borderBottom: "3px solid #386EEC",
-                    }
-                  : {}
-              }
-            >
-              In-Game Performance
-            </a>
-            <a
+            />
+            <img
+              src="/images/icon/icon_refresh.svg"
+              alt=""
               onClick={() => {
-                anchor("#On-Chain-Attribute");
+                window.location.reload();
               }}
-              // href="#On-Chain-Attribute"
-              style={
-                getSelectedStatus("#On-Chain-Attribute")
-                  ? {
-                      color: "#386EEC",
-                      borderBottom: "2px solid #386EEC",
+            />
+          </div>
+          {
+            // @ts-ignore
+            scrollTop > 80 && data?.off_chain_attribute?.length ? (
+              <div className={styles["top_anchor"]}>
+                <a
+                  // href="#In-Game-Performance"
+                  onClick={() => {
+                    anchor("#In-Game-Performance");
+                  }}
+                  style={
+                    getSelectedStatus("#In-Game-Performance")
+                      ? {
+                          color: "#386EEC",
+                          borderBottom: "3px solid #386EEC",
+                        }
+                      : {}
+                  }
+                >
+                  In-Game Performance
+                </a>
+                <a
+                  onClick={() => {
+                    anchor("#On-Chain-Attribute");
+                  }}
+                  // href="#On-Chain-Attribute"
+                  style={
+                    getSelectedStatus("#On-Chain-Attribute")
+                      ? {
+                          color: "#386EEC",
+                          borderBottom: "2px solid #386EEC",
+                        }
+                      : {}
+                  }
+                >
+                  On-Chain Attribute
+                </a>
+                <a
+                  onClick={() => {
+                    anchor("#Details");
+                  }}
+                  // href="#Details"
+                  style={
+                    getSelectedStatus("#Details")
+                      ? {
+                          color: "#386EEC",
+                          borderBottom: "2px solid #386EEC",
+                        }
+                      : {}
+                  }
+                >
+                  Details
+                </a>
+                {activity?.length ? (
+                  <a
+                    onClick={() => {
+                      anchor("#Activities");
+                    }}
+                    // href="#Activities"
+                    style={
+                      getSelectedStatus("#Activities")
+                        ? {
+                            color: "#386EEC",
+                            borderBottom: "2px solid #386EEC",
+                          }
+                        : {}
                     }
-                  : {}
-              }
-            >
-              On-Chain Attribute
-            </a>
-            <a
-              onClick={() => {
-                anchor("#Details");
-              }}
-              // href="#Details"
-              style={
-                getSelectedStatus("#Details")
-                  ? {
-                      color: "#386EEC",
-                      borderBottom: "2px solid #386EEC",
-                    }
-                  : {}
-              }
-            >
-              Details
-            </a>
-            {activity?.length ? (
-              <a
-                onClick={() => {
-                  anchor("#Activities");
-                }}
-                // href="#Activities"
-                style={
-                  getSelectedStatus("#Activities")
-                    ? {
-                        color: "#386EEC",
-                        borderBottom: "2px solid #386EEC",
-                      }
-                    : {}
-                }
-              >
-                Activities
-              </a>
+                  >
+                    Activities
+                  </a>
+                ) : (
+                  ""
+                )}
+              </div>
             ) : (
               ""
-            )}
-          </div>
-        ) : (
-          ""
-        )
-      }
-      <div className={styles["info"]}>
-        <img
-          // @ts-ignore
-          src={data?.image}
-          onClick={() => {
-            router.push("/search");
-          }}
-        ></img>
-        <p>
-          {/*  @ts-ignore */}
-          <span>{data?.name}</span>
-          {/*  @ts-ignore */}
-          <span>
+            )
+          }
+          <div className={styles["info"]}>
             <img
-              style={{
-                width: "14px",
-                height: "14px",
-                margin: "0px",
-                display: "inline-block",
-                position: "relative",
-                top: "2px",
+              // @ts-ignore
+              src={data?.image}
+              onClick={() => {
+                router.push("/search");
               }}
-              src="/images/icon/solana_blue.svg"
-              alt=""
-            />
-            {/*  @ts-ignore */}
-            {data?.price || "-"}
-          </span>
-        </p>
-      </div>
-      {
-        // @ts-ignore
-        data?.off_chain_attribute?.length ? (
-          <p className={styles["title"]} id="In-Game-Performance">
-            In-Game Performance
+            ></img>
+            <p>
+              {/*  @ts-ignore */}
+              <span>{data?.name}</span>
+              {/*  @ts-ignore */}
+              <span>
+                <img
+                  style={{
+                    width: "14px",
+                    height: "14px",
+                    margin: "0px",
+                    display: "inline-block",
+                    position: "relative",
+                    top: "2px",
+                  }}
+                  src="/images/icon/solana_blue.svg"
+                  alt=""
+                />
+                {/*  @ts-ignore */}
+                {data?.price || "-"}
+              </span>
+            </p>
+          </div>
+          {
+            // @ts-ignore
+            data?.off_chain_attribute?.length ? (
+              <p className={styles["title"]} id="In-Game-Performance">
+                In-Game Performance
+              </p>
+            ) : (
+              ""
+            )
+          }
+          {
+            // @ts-ignore
+            data?.off_chain_attribute?.length ? (
+              <div className={styles["skills"]}>
+                {/* @ts-ignore */}
+                {data?.off_chain_attribute?.map((item: any, index: number) => {
+                  return (
+                    <p key={index}>
+                      <img
+                        src={item?.image}
+                        alt=""
+                        style={{
+                          float: "left",
+                          marginRight: "10px",
+                          width: "20px",
+                        }}
+                      />
+                      <span>{item?.trait_type}</span>
+                      <span>{item?.value}</span>
+                    </p>
+                  );
+                })}
+              </div>
+            ) : (
+              ""
+            )
+          }
+          {/* @ts-ignore */}
+          {data?.skill_attributes ? (
+            <div className={styles["skills_set"]}>
+              <p>Passive Skill Set </p>
+              {/* @ts-ignore */}
+              {data?.skill_attributes?.map((item: any, index: number) => {
+                return (
+                  <div key={index} className={styles["skills_set_item"]}>
+                    <img
+                      src={item.image}
+                      // onClick={() => {
+                      //   router.push("/search");
+                      // }}
+                    ></img>
+                    <p
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      {item.value}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            ""
+          )}
+          <p className={styles["title"]} id="On-Chain-Attribute">
+            On-Chain Attribute
           </p>
-        ) : (
-          ""
-        )
-      }
-      {
-        // @ts-ignore
-        data?.off_chain_attribute?.length ? (
-          <div className={styles["skills"]}>
-            {/* @ts-ignore */}
-            {data?.off_chain_attribute?.map((item: any, index: number) => {
+          <div className={styles["On_Chain"]}>
+            {/*  @ts-ignore */}
+            {data?.attributes?.map((item: any) => {
               return (
-                <p key={index}>
-                  <img
-                    src={item?.image}
-                    alt=""
-                    style={{
-                      float: "left",
-                      marginRight: "10px",
-                      width: "20px",
-                    }}
-                  />
+                <div key={item?.trait_type}>
                   <span>{item?.trait_type}</span>
                   <span>{item?.value}</span>
-                </p>
+                </div>
               );
             })}
-          </div>
-        ) : (
-          ""
-        )
-      }
-      {/* @ts-ignore */}
-      {data?.skill_attributes ? (
-        <div className={styles["skills_set"]}>
-          <p>Passive Skill Set </p>
-          {/* @ts-ignore */}
-          {data?.skill_attributes?.map((item: any, index: number) => {
-            return (
-              <div key={index} className={styles["skills_set_item"]}>
-                <img
-                  src={item.image}
-                  // onClick={() => {
-                  //   router.push("/search");
-                  // }}
-                ></img>
-                <p
-                  style={{
-                    width: "100%",
-                  }}
-                >
-                  {item.value}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        ""
-      )}
-      <p className={styles["title"]} id="On-Chain-Attribute">
-        On-Chain Attribute
-      </p>
-      <div className={styles["On_Chain"]}>
-        {/*  @ts-ignore */}
-        {data?.attributes?.map((item: any) => {
-          return (
-            <div key={item?.trait_type}>
-              <span>{item?.trait_type}</span>
-              <span>{item?.value}</span>
-            </div>
-          );
-        })}
-        {/* <div>
+            {/* <div>
           <span>Backgroung</span>
           <span>Pink</span>
         </div>
@@ -337,118 +350,126 @@ const NftItem = () => {
           <span>Hair</span>
           <span>Yuki-onna</span>
         </div> */}
-      </div>
-      <p className={styles["title"]} id="Details">
-        Details
-      </p>
-      <div className={styles["On_Chain"]}>
-        {/*  @ts-ignore */}
-        {data?.mint_address ? (
-          <div>
-            <span>Mint Address</span>
+          </div>
+          <p className={styles["title"]} id="Details">
+            Details
+          </p>
+          <div className={styles["On_Chain"]}>
             {/*  @ts-ignore */}
-            <span>{`${data?.mint_address?.slice(
-              0,
-              4
-              /*  @ts-ignore */
-            )}...${data?.mint_address?.slice(-4)}`}</span>
-          </div>
-        ) : (
-          ""
-        )}
-        {/*  @ts-ignore */}
-        {data?.token_address ? (
-          <div>
-            <span>Token Address</span>
+            {data?.mint_address ? (
+              <div>
+                <span>Mint Address</span>
+                {/*  @ts-ignore */}
+                <span>{`${data?.mint_address?.slice(
+                  0,
+                  4
+                  /*  @ts-ignore */
+                )}...${data?.mint_address?.slice(-4)}`}</span>
+              </div>
+            ) : (
+              ""
+            )}
             {/*  @ts-ignore */}
-            <span>{`${data?.token_address?.slice(
-              0,
-              4
-              /*  @ts-ignore */
-            )}...${data?.token_address?.slice(-4)}`}</span>
-          </div>
-        ) : (
-          ""
-        )}
-        {/*  @ts-ignore */}
-        {data?.owner_address ? (
-          <div>
-            <span>Owner Address</span>
+            {data?.token_address ? (
+              <div>
+                <span>Token Address</span>
+                {/*  @ts-ignore */}
+                <span>{`${data?.token_address?.slice(
+                  0,
+                  4
+                  /*  @ts-ignore */
+                )}...${data?.token_address?.slice(-4)}`}</span>
+              </div>
+            ) : (
+              ""
+            )}
             {/*  @ts-ignore */}
-            <span>{`${data?.owner_address?.slice(
-              0,
-              4
-              /*  @ts-ignore */
-            )}...${data?.owner_address?.slice(-4)}`}</span>
+            {data?.owner_address ? (
+              <div>
+                <span>Owner Address</span>
+                {/*  @ts-ignore */}
+                <span>{`${data?.owner_address?.slice(
+                  0,
+                  4
+                  /*  @ts-ignore */
+                )}...${data?.owner_address?.slice(-4)}`}</span>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
-        ) : (
-          ""
-        )}
-      </div>
-      {activity?.length ? (
-        <p className={styles["title"]} id="Activities">
-          Activities
-        </p>
-      ) : (
-        ""
-      )}
-      {activity?.length ? (
-        <div className={styles["activities"]}>
-          <div className={styles["table-header"]}>
-            <span>Event</span>
-            <span>Price</span>
-            <span>Date</span>
-          </div>
-          {activity.map((item, index) => {
-            return (
-              <div key={index}>
-                {item?.length
-                  ? //  @ts-ignore
-                    item.map((childItem, childIndex) => {
-                      return (
-                        <div key={childIndex} className={styles["table-item"]}>
-                          <span>{childItem?.event_type}</span>
+          {activity?.length ? (
+            <p className={styles["title"]} id="Activities">
+              Activities
+            </p>
+          ) : (
+            ""
+          )}
+          {activity?.length ? (
+            <div className={styles["activities"]}>
+              <div className={styles["table-header"]}>
+                <span>Event</span>
+                <span>Price</span>
+                <span>Date</span>
+              </div>
+              {activity.map((item, index) => {
+                return (
+                  <div key={index}>
+                    {item?.length
+                      ? //  @ts-ignore
+                        item.map((childItem, childIndex) => {
+                          return (
+                            <div
+                              key={childIndex}
+                              className={styles["table-item"]}
+                            >
+                              <span>{childItem?.event_type}</span>
 
-                          <span
-                            style={{
-                              position: "relative",
-                              top: "-4px",
-                            }}
-                          >
-                            {childItem?.price && (
-                              <img
-                                src="/images/icon/icon_Solana.svg"
-                                alt=""
+                              <span
                                 style={{
                                   position: "relative",
-                                  top: "4px",
+                                  top: "-4px",
                                 }}
-                              />
-                            )}
-                            {childItem?.price}
-                          </span>
-                          <span>{childItem?.date_tag}</span>
-                        </div>
-                      );
-                    })
-                  : ""}
-              </div>
-            );
-          })}
+                              >
+                                {childItem?.price && (
+                                  <img
+                                    src="/images/icon/icon_Solana.svg"
+                                    alt=""
+                                    style={{
+                                      position: "relative",
+                                      top: "4px",
+                                    }}
+                                  />
+                                )}
+                                {childItem?.price}
+                              </span>
+                              <span>{childItem?.date_tag}</span>
+                            </div>
+                          );
+                        })
+                      : ""}
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            ""
+          )}
+          {/*@ts-ignore */}
+          {!(
+            // @ts-ignore
+            (
+              !data?.listed &&
+              userInfo?.wallet?.sol_address !== data.owner_address
+            )
+          ) ? (
+            <Footer data={data} userInfo={userInfo}></Footer>
+          ) : (
+            ""
+          )}
         </div>
-      ) : (
-        ""
       )}
-      {/*@ts-ignore */}
-      {!(
-        // @ts-ignore
-        (!data?.listed && userInfo?.wallet?.sol_address !== data.owner_address)
-      ) ? (
-        <Footer data={data} userInfo={userInfo}></Footer>
-      ) : (
-        ""
-      )}
-    </div>
+    </>
   );
 };
 
