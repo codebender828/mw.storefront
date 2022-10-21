@@ -32,6 +32,7 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const [scrollTop, setScrollTop] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const search = (val: object, name: string) => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -54,8 +55,13 @@ const Home = () => {
     getNFTS(param);
   };
   const getNFTS = async (param: any) => {
-    if (param.page > totalPage && param.page !== 1) return;
+    setLoading(true);
+    if (param.page > totalPage && param.page !== 1) {
+      setLoading(false);
+      return;
+    }
     const data = await getCollectionNfts(param);
+    setLoading(false);
     // @ts-ignore
     window.lock = false;
     // @ts-ignore
@@ -93,7 +99,15 @@ const Home = () => {
       // );
 
       if (!document) return;
-      if (document.documentElement.scrollTop < 80) {
+      console.log(
+        document?.querySelector("#filter").offsetTop,
+        document.documentElement.scrollTop,
+        "123123"
+      );
+      if (
+        document?.querySelector("#filter").offsetTop <
+        document.documentElement.scrollTop
+      ) {
         setScrollTop(true);
       } else {
         setScrollTop(false);
@@ -140,16 +154,22 @@ const Home = () => {
     <div>
       <div
         style={{
-          position: "sticky",
+          // position: "sticky",
           top: "0px",
           width: "100%",
           zIndex: 99,
           background: "#f5f6fa",
         }}
       >
-        {scrollTop && <Search></Search>}
+        <Search></Search>
         {filterData?.length ? (
-          <Filter search={search} data={filterData}></Filter>
+          <Filter
+            search={search}
+            data={filterData}
+            style={
+              scrollTop ? { position: "fixed", top: "0px", width: "100%" } : {}
+            }
+          ></Filter>
         ) : (
           ""
         )}
@@ -289,6 +309,17 @@ const Home = () => {
             ""
           )}
         </div>
+        {loading && (
+          <img
+            src="/images/loading.gif"
+            alt=""
+            style={{
+              margin: " 10px auto 0",
+              display: "block",
+              width: "30px",
+            }}
+          />
+        )}
       </div>
       {questParam.page >= totalPage && data?.length ? (
         <div className={styles.nft_list_bottom}>

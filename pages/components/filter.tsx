@@ -11,10 +11,11 @@ import { json } from "stream/consumers";
 export interface props {
   search: Function;
   data: Array<object>;
+  style: object;
 }
 
 const Filter = (props: props) => {
-  const { search, data } = props;
+  const { search, data, style } = props;
   const [collectionSelected, setCollectionSelected] = useState(0);
   const [orderSearch, setOrderSearch] = useState(false);
   const [orderFilterData, setOrderFilterData] = useState([]);
@@ -132,7 +133,7 @@ const Filter = (props: props) => {
   };
   return (
     <div>
-      <div className={styles.filter}>
+      <div className={styles.filter} id="filter" style={{ ...style }}>
         {data?.length > 1 && (
           <p className={styles.first_level_search}>
             {data?.length
