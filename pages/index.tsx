@@ -155,6 +155,7 @@ const Home = () => {
           width: "100%",
           zIndex: 99,
           background: "#f5f6fa",
+          position: "relative",
         }}
       >
         <Search></Search>

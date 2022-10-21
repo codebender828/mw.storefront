@@ -71,6 +71,7 @@ const Search: NextPage = () => {
           style={{
             width: "100%",
             position: "absolute",
+            bottom: "-20px",
           }}
           src="/images/background.png"
           alt=""
