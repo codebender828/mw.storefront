@@ -163,7 +163,15 @@ const Home = () => {
             search={search}
             data={filterData}
             style={
-              scrollTop ? { position: "fixed", top: "0px", width: "100%" } : {}
+              scrollTop
+                ? {
+                    position: "fixed",
+                    top: "0px",
+                    width: "100%",
+                    background: "#f5f6fa",
+                    zIndex: "999",
+                  }
+                : {}
             }
           ></Filter>
         ) : (
