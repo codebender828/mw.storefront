@@ -294,7 +294,7 @@ const NftItem = () => {
             )
           }
           {/* @ts-ignore */}
-          {data?.skill_attributes ? (
+          {data?.skill_attributes?.length ? (
             <div className={styles["skills_set"]}>
               <p>Passive Skill Set </p>
               {/* @ts-ignore */}
@@ -457,9 +457,11 @@ const NftItem = () => {
           )}
           {/*@ts-ignore */}
           {!(
-            // @ts-ignore
+           
             (
-              !data?.listed &&
+               // @ts-ignore
+              data?.listed &&
+               // @ts-ignore
               userInfo?.wallet?.sol_address !== data.owner_address
             )
           ) ? (

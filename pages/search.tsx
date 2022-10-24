@@ -38,33 +38,44 @@ const Search: NextPage = () => {
           padding: "10px 0px 5px",
         }}
       >
-        <div className="input_search_container">
-          <input
-            placeholder="NFT Name"
-            onChange={(e) => {
-              setKey(e.target.value || "");
-              searchNft(e);
-            }}
-            value={key}
-          ></input>
-          {key && (
-            <img
-              className="search_clear"
-              src="/images/icon/icon_delete.svg"
-              alt=""
-              onClick={() => {
-                setKey("");
+        <div style={{ overflow: "hidden" }}>
+          <div className="input_search_container">
+            <input
+              placeholder="NFT Name"
+              onChange={(e) => {
+                setKey(e.target.value || "");
+                searchNft(e);
               }}
-            />
-          )}
+              value={key}
+            ></input>
+            {key && (
+              <img
+                className="search_clear"
+                src="/images/icon/icon_delete.svg"
+                alt=""
+                onClick={() => {
+                  setKey("");
+                }}
+              />
+            )}
+          </div>
+          <span
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            Cancel
+          </span>
         </div>
-        <span
-          onClick={() => {
-            router.push("/");
+        <img
+          style={{
+            width: "100%",
+            position: "absolute",
+            bottom: "-20px",
           }}
-        >
-          Cancel
-        </span>
+          src="/images/background.png"
+          alt=""
+        />
       </div>
       <div className="search-result">
         {!key && <p className="search_page_title">Everyone is Searching</p>}

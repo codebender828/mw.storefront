@@ -132,8 +132,8 @@ const Filter = (props: props) => {
     return sortData;
   };
   return (
-    <div>
-      <div className={styles.filter} id="filter" style={{ ...style }}>
+    <div id="filter" style={{ ...style }}>
+      <div className={styles.filter}>
         {data?.length > 1 && (
           <p className={styles.first_level_search}>
             {data?.length
@@ -595,8 +595,18 @@ const Filter = (props: props) => {
           height: "20px",
           background: "#ffffff",
           borderRadius: "20px 20px 0px 0px",
+          marginTop: "-1px",
         }}
       ></div> */}
+      <img
+        style={{
+          width: "100%",
+          position: "absolute",
+          bottom: "-20px",
+        }}
+        src="/images/background.png"
+        alt=""
+      />
     </div>
   );
 };
