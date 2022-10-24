@@ -4,7 +4,8 @@ export const userConfig = {
     "DUuMbpmH3oiREntViXfGZhrLMbVcYBwGeBa4Wn9X8QfM"
     // "Sw5dRtqE3zL59sLdBbGkHwM8WQ7V5zBPbVW6FjPmDJC"
   ],
-  xApiKey: 'mw_testAmRKdRbBsBbIAw3CeMqS9GORmcG5BRUCU4D',
+  // xApiKey: 'mw_testAmRKdRbBsBbIAw3CeMqS9GORmcG5BRUCU4D',
+  xApiKey: 'mw_fvkzfmWzNWe8T0tWSSaKfl28Q79bn4xitrP',
   gasFee: 4.25, // 0.001% ～ 100%
   currencyOption: 'SOL',// USDC 和 SOL
   name: 'Mirror Jump',
