@@ -1,4 +1,3 @@
-import type { NextPage } from "next";
 import Image from "next/image";
 import styles from "../../styles/Footer.module.less";
 import { useRouter } from "next/router";
