@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import {userConfig} from 'userConfig'
+import userConfig from '@/userConfig.json'
+
 
 declare let window: any;
 
@@ -12,8 +13,11 @@ let request:any = null;
 import { MirrorWorld, ClusterEnvironment } from "@mirrorworld/web3.js"
 
 const mirrorworld = new MirrorWorld({
+  // devnet and mainnet
+  //  @ts-ignore
   apiKey: userConfig.xApiKey,
-  env: !ifProduct ? ClusterEnvironment.testnet : ClusterEnvironment.mainnet, // Can be ClusterEnvionment.mainnet for mainnet
+  env: userConfig.network === 'mainnet'  ? ClusterEnvironment.mainnet : ClusterEnvironment.testnet , // Can be ClusterEnvionment.mainnet for mainnet
+  staging: !ifProduct
 })
 
 
@@ -32,11 +36,12 @@ const requestInterception = () => {
 if(request) return;
 request =  axios.create({
   baseURL: ifProduct ? 
-  'https://api.mirrorworld.fun/v1/marketplace/'
-  : 'https://api-staging.mirrorworld.fun/v1/marketplace/' ,
+  `https://api.mirrorworld.fun/v1/marketplace/` 
+  : `https://api-staging.mirrorworld.fun/v1/marketplace/` ,
   headers: {
     // 'X-SSO-Token': Cookies.get('sso-t') || '',
     'Authorization': `Bearer ${getAUTH() || window?.localStorage?.auth}`,
+    //  @ts-ignore
     'x-api-key': userConfig.xApiKey
   },
 });
@@ -47,6 +52,7 @@ request =  axios.create({
 export const getCollectionInfo = async ()=>{
   requestInterception();
   const data =  await request.post('collections',  {
+    //  @ts-ignore
       collections: userConfig.collections
   })
   return data;
@@ -94,6 +100,7 @@ export const getCollectionNfts = async (param: object) => {
 export const getNftSearch = async (search: string) => {
   requestInterception();
   const data = await request.post(`nft/search`, {
+    //  @ts-ignore
       collections: userConfig.collections,
       search: search
   })
@@ -105,6 +112,7 @@ export const getNftSearch = async (search: string) => {
 export const getNftRecommend = async (search: string) => {
   requestInterception();
   const data = await request.post(`nft/search/recommend`, {
+    //  @ts-ignore
       collections: userConfig.collections,
   })
   return data
@@ -196,7 +204,8 @@ export const getPrice = async (price:number) => {
   requestInterception();
   const data = await request.post(`nft/real_price`, {
     "price": price,
-    "fee": userConfig.gasFee *1000  // 0.001% ～ 100% 对应 1 ～ 100000 
+    //  @ts-ignore
+    "fee": userConfig.serviceFee *1000  // 0.001% ～ 100% 对应 1 ～ 100000 
   })
   return data
 }

@@ -5,7 +5,7 @@ import styles from "../../styles/Filter.module.less";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { getCollectionFilter, getCollectionNfts } from "../api/request";
-import { userConfig } from "userConfig";
+import  userConfig  from "@/userConfig.json";
 import { json } from "stream/consumers";
 
 export interface props {
