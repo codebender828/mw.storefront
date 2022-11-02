@@ -80,15 +80,16 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@mirrorworld/web3.js@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@mirrorworld/web3.js/-/web3.js-1.0.2.tgz#70ef5f2a031ba683026d5342e1bc529aa6cf7275"
-  integrity sha512-1Fkm8LXifaUJRnhJsT0u+SecbHg0RV6cTfsLuhwhfz3wF86Wn4CitLaq0gRA1buQ7xFW45T5URvgvxe4sEsO/w==
+"@mirrorworld/web3.js@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@mirrorworld/web3.js/-/web3.js-1.2.0.tgz#74a11fa4421535101e7304b19c8fa19bdfe8f655"
+  integrity sha512-M2wFZHqg+jEPxCC5FqFF7VfqyiXwqpiVtzgLG6ZhyVSWoY1e7r/i16FTmaEc6AFC/zQ/wCeDMSeIAX8mIsff5A==
   dependencies:
     "@babel/runtime" "^7.18.9"
     "@types/bson" "^4.2.0"
     axios "^0.27.2"
     bson "^4.6.5"
+    device-detector-js "^3.0.3"
     joi "^17.6.0"
     mitt "^3.0.0"
 
@@ -716,6 +717,11 @@ delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
+
+device-detector-js@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/device-detector-js/-/device-detector-js-3.0.3.tgz#03424a45962bd80294e8004a2557dc7e7b98247e"
+  integrity sha512-jM89LJAvP6uOd84at8OlD9dWP8KeYCCHUde0RT0HQo/stdoRH4b54Xl/fntx2nEXCmqiFhmo+/cJetS2VGUHPw==
 
 dir-glob@^3.0.1:
   version "3.0.1"

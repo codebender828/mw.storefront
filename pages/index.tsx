@@ -8,7 +8,7 @@ import Search from "./components/search";
 import Filter from "./components/filter";
 import React, { useEffect, useState } from "react";
 import { getCollectionInfo, getCollectionNfts } from "./api/request";
-import { userConfig } from "userConfig";
+import userConfig from "@/userConfig.json";
 import { useRouter } from "next/router";
 
 const newList = new Array();
@@ -17,6 +17,7 @@ const Home = () => {
   const [firstTime, setFirstTime] = useState(false);
   const [listHeight, setListHeight] = useState([]);
   const [questParam, setQuestParam] = useState({
+    //  @ts-ignore
     collection: userConfig?.collections[0],
     page: 1,
     page_size: 10, // 最大 50

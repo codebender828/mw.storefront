@@ -1,9 +1,6 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Sell.module.less";
 import React, { useEffect, useState } from "react";
-import { userConfig } from "@/userConfig";
+import userConfig from "@/userConfig.json";
 
 import { useRouter } from "next/router";
 import {
@@ -184,7 +181,10 @@ const Search = () => {
               <p className={styles.sell_card_sell_info}>
                 <p>
                   <span>Service Fee</span>
-                  <span>{userConfig?.gasFee ? userConfig.gasFee : 0}%</span>
+                  <span>
+                    {/* @ts-ignore */}
+                    {userConfig?.serviceFee ? userConfig.serviceFee : 0}%
+                  </span>
                 </p>
                 <p>
                   <span>Listing/Cancel Fee</span>
