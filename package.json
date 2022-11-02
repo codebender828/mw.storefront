@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mirrorworld/web3.js": "^1.2.0",
+    "@mirrorworld/web3.js": "^2.0.0",
     "antd-mobile": "^5.23.0",
     "axios": "^0.27.2",
     "js-cookie": "^3.0.1",

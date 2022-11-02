@@ -80,7 +80,7 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@mirrorworld/web3.js@^1.2.0":
+"@mirrorworld/web3.js@^2.0.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@mirrorworld/web3.js/-/web3.js-1.2.0.tgz#74a11fa4421535101e7304b19c8fa19bdfe8f655"
   integrity sha512-M2wFZHqg+jEPxCC5FqFF7VfqyiXwqpiVtzgLG6ZhyVSWoY1e7r/i16FTmaEc6AFC/zQ/wCeDMSeIAX8mIsff5A==
