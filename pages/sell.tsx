@@ -1,6 +1,3 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Sell.module.less";
 import React, { useEffect, useState } from "react";
 import userConfig from "@/userConfig.json";
