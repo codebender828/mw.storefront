@@ -8,17 +8,17 @@ This repo contains a plug n' play template for the Mirror World SDK Marketplace.
 3. Collection Addresses (Copy from your project on dashboard)
 
 ## Usage
-1. Clone this template repo:
+### 1. Clone this template repo:
 ```sh
 git clone git@github.com:mirrorworld-universe/marketplace-sdk.git
 ```
 
-2. Install dependencies
+### 2. Install dependencies
 ```sh
 yarn install
 ```
 
-3. Setup storefront `userConfig.json` variables. Please put your API Key and Collection addresses in this config
+### 3. Setup storefront `userConfig.json` variables. Please put your API Key and Collection addresses in this config
 Example config:
 ```json
 {
@@ -42,12 +42,12 @@ Example config:
 ```
 
 
-3. Run dev server
+###  4. Run dev server
 ```sh
 yarn dev
 ```
 
-4. That's it! Deploy your static site!
+### 5. That's it! Deploy your static site!
 You can deploy yoru Next.js site using [Vercel](https://vercel.com) or [Netlify](https://netlify.com), or [Cloudflare Pages](https://pages.cloudflare.dev).
 
 ## LICENSE
