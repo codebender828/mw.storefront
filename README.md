@@ -51,4 +51,4 @@ yarn dev
 You can deploy yoru Next.js site using [Vercel](https://vercel.com) or [Netlify](https://netlify.com), or [Cloudflare Pages](https://pages.cloudflare.dev).
 
 ## LICENSE
-Apache-2.0
+MIT License
