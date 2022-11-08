@@ -32,10 +32,6 @@ Example config:
   "serviceFee": 4.25,
   // Marketplace storefront currency
   "currencyOption": "SOL",
-  // Storefront name
-  "name": "Mirror Jump",
-  // Storefront Logo URL
-  "logo": "",
   // Storefront Network
   "network": "mainnet"
 }
