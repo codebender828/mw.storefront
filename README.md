@@ -10,7 +10,7 @@ This repo contains a plug n' play template for the Mirror World SDK Marketplace.
 ## Usage
 ### 1. Clone this template repo:
 ```sh
-git clone git@github.com:mirrorworld-universe/marketplace-sdk.git
+git clone git@github.com:mirrorworld-universe/marketplace-storefront.git
 ```
 
 ### 2. Install dependencies
