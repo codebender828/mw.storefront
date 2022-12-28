@@ -85,20 +85,6 @@ const Home = () => {
 
   useEffect(() => {
     const a = () => {
-      // @ts-ignore
-      // console.log(document, window.lock, "to bottom");
-      // console.log(
-      //   document.documentElement.scrollHeight -
-      //     document.documentElement.scrollTop -
-      //     document.documentElement.clientHeight,
-      //   "bottom distance"
-      // );
-      // alert(
-      //   document.documentElement.scrollHeight -
-      //     document.documentElement.scrollTop -
-      //     document.documentElement.clientHeight
-      // );
-
       if (!document) return;
       if (
         // @ts-ignore
@@ -115,7 +101,7 @@ const Home = () => {
         document.documentElement.scrollHeight -
           document.documentElement.scrollTop -
           document.documentElement.clientHeight <
-        3
+        100
       ) {
         // console.log("slide bottom");
         // @ts-ignore
