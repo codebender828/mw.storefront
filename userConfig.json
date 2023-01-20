@@ -1,9 +1,11 @@
 {
   "collections": [
-    "DUuMbpmH3oiREntViXfGZhrLMbVcYBwGeBa4Wn9X8QfM"
+    "Please enter your Collection ID"
   ],
-  "xApiKey": "mw_testAmRKdRbBsBbIAw3CeMqS9GORmcG5BRUCU4D",
-  "serviceFee": 4.25,
-  "currencyOption": "SOL",
-  "network": "mainnet"
+  "xApiKey": "Please enter your API Key",
+  "serviceFee": "Please enter your service fee (Recommended 4.25)",
+  "currencyOption": "Please enter your payment token",
+  "name": "Please enter your storefront name",
+  "logo": "Please enter your logo image URL",
+  "network": "Please enter your selected network "
 }

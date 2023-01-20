@@ -22,18 +22,15 @@ yarn install
 Example config:
 ```json
 {
-  // Array of collection addresses
   "collections": [
-    "DUuMbpmH3oiREntViXfGZhrLMbVcYBwGeBa4Wn9X8QfM"
+    "Please enter your Collection ID"
   ],
-  // API Key
-  "xApiKey": "mw_testAmRKdRbBsBbIAw3CeMqS9GORmcG5BRUCU4D",
-  // Marketplace commission fee in percentage
-  "serviceFee": 4.25,
-  // Marketplace storefront currency
-  "currencyOption": "SOL",
-  // Storefront Network
-  "network": "mainnet"
+  "xApiKey": "Please enter your API Key",
+  "serviceFee": "Please enter your service fee (Recommended 4.25)",
+  "currencyOption": "Please enter your payment token",
+  "name": "Please enter your storefront name",
+  "logo": "Please enter your logo image URL",
+  "network": "Please enter your selected network "
 }
 ```
 
