@@ -1,11 +1,10 @@
 import axios from 'axios'
-import Cookies from 'js-cookie'
 import userConfig from '@/userConfig.json'
 
 
 declare let window: any;
 
-const ifProduct =  process.env.NEXT_PUBLIC_BRANCH_NAME === 'main';
+const ifProduct =  userConfig.xApiKey.length < 42;
 let request:any = null;
 
 
