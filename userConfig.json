@@ -1,10 +1,10 @@
 {
-  "collections": ["CnFFwJ4V2RaNorLs7EdtNZqQ2uhgXp6X3gKEmLgxEBPZ"],
+  "collections": ["3F1BomVRjm55MJ7kk77Z4xUeAda3c1JzevHzf8vAxhTF"],
   "xApiKey": "mw_lCX2WHH7mBspKuWQuSoKhxKJSJN0FAMIqM5",
   "serviceFee": "3",
-  "auctionHouse": "ADbCePQTzA9feKn78ny4UhD5ADVgm16T3vZabXN1dkzQ",
-  "currencyOption": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  "auctionHouse": "6zTdCB38Vd4bNpCeeMdcqs6iNRT1aYdRRn74gNcQKZcM",
+  "currencyOption": "So11111111111111111111111111111111111111112",
   "name": "Demo Storefront",
   "logo": "Please enter your logo image URL",
-  "network": "mainnet"
+  "network": "devnet"
 }
