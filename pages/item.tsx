@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { Divider } from "antd-mobile";
 import { relative } from "path";
 import { redirect } from "next/dist/server/api-utils";
+import { canUseDom } from '@/utils/dom';
 
 // let pageSize = 1;
 let activitylist: any = [];
@@ -23,7 +24,7 @@ const NftItem = () => {
   const [pageSize, setPageSize] = useState(1);
   const { query } = router;
   const getAddress = () => {
-    const queryString = window.location.search;
+    const queryString = canUseDom ? window.location.search : "";
     const urlParams = new URLSearchParams(queryString);
     return urlParams.get("addr");
   };

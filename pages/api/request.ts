@@ -1,6 +1,13 @@
 import axios, { AxiosInstance } from "axios";
 import userConfig from "@/userConfig.json";
 import { toast } from "sonner";
+import {
+  AUTH_TOKEN_KEY,
+  REFRESH_TOKEN_KEY,
+  __mirrorworld,
+} from "@/hooks/use-mirrorworld";
+import { canUseDom } from "@/utils/dom";
+import { eventBus } from "@/utils/bus";
 
 declare let window: any;
 
@@ -8,21 +15,10 @@ const ifProduct = userConfig.xApiKey.length < 42;
 let request: any = null;
 let requestV2: AxiosInstance | null = null;
 
-import { MirrorWorld, ClusterEnvironment } from "@mirrorworld/web3.js";
-
-const mirrorworld = new MirrorWorld({
-  // devnet and mainnet
-  //  @ts-ignore
-  apiKey: userConfig.xApiKey,
-  env:
-    userConfig.network === "mainnet"
-      ? ClusterEnvironment.mainnet
-      : ClusterEnvironment.testnet, // Can be ClusterEnvionment.mainnet for mainnet
-  staging: !ifProduct,
-});
+const mirrorworld = __mirrorworld;
 
 const getAUTH = () => {
-  const queryString = window.location.search;
+  const queryString = canUseDom ? window.location.search : "";
   const urlParams = new URLSearchParams(queryString);
   const auth = urlParams.get("auth");
   auth && window.localStorage.setItem("auth", auth);
@@ -36,15 +32,17 @@ const requestInterception = () => {
       ? `https://api.mirrorworld.fun/v1/marketplace/`
       : `https://api-staging.mirrorworld.fun/v1/marketplace/`,
     headers: {
-      Authorization: `Bearer ${getAUTH() || window?.localStorage?.auth}`,
+      Authorization: `Bearer ${
+        getAUTH() || canUseDom ? window.localStorage.auth : "UNDEFINED"
+      }`,
       "x-api-key": userConfig.xApiKey,
     },
   });
   mirrorworld._api.client.defaults.headers.common.Authorization = `Bearer ${
-    getAUTH() || window?.localStorage?.auth
+    getAUTH() || canUseDom ? window.localStorage.auth : "UNDEFINED"
   }`;
   mirrorworld._api.sso.defaults.headers.common.Authorization = `Bearer ${
-    getAUTH() || window?.localStorage?.auth
+    getAUTH() || canUseDom ? window.localStorage.auth : "UNDEFINED"
   }`;
 };
 
@@ -55,15 +53,17 @@ const requestInterceptionV2 = () => {
       ? `https://api.mirrorworld.fun/v2`
       : `https://api-staging.mirrorworld.fun/v2`,
     headers: {
-      Authorization: `Bearer ${getAUTH() || window?.localStorage?.auth}`,
+      Authorization: `Bearer ${
+        getAUTH() || canUseDom ? window.localStorage.auth : "UNDEFINED"
+      }`,
       "x-api-key": userConfig.xApiKey,
     },
   });
   mirrorworld._api.client.defaults.headers.common.Authorization = `Bearer ${
-    getAUTH() || window?.localStorage?.auth
+    getAUTH() || canUseDom ? window.localStorage.auth : "UNDEFINED"
   }`;
   mirrorworld._api.sso.defaults.headers.common.Authorization = `Bearer ${
-    getAUTH() || window?.localStorage?.auth
+    getAUTH() || canUseDom ? window.localStorage.auth : "UNDEFINED"
   }`;
 
   return requestV2;
@@ -152,10 +152,14 @@ export const getNftRecommend = async (search: string) => {
   return data;
 };
 
-// export const getNft = async (mintAddress: string)=> {
-//   const nft = await mirrorworld.getNftDetails(mintAddress)
-//   return nft
-// }
+async function login() {
+  const result = await mirrorworld.login();
+
+  if (result.user) {
+    localStorage.setItem(REFRESH_TOKEN_KEY, result.refreshToken);
+    localStorage.setItem(AUTH_TOKEN_KEY, result.authToken);
+  }
+}
 
 export const getNft = async (mintAddress: string) => {
   requestInterception();
@@ -168,7 +172,7 @@ export const buyNFT = async (mint_address: string, price: number) => {
   requestInterception();
   if (!mirrorworld.user) {
     toast("Logging in");
-    await mirrorworld.login();
+    await login();
   }
   const listing = await mirrorworld.buyNFT({
     mintAddress: mint_address,
@@ -200,6 +204,7 @@ export const getNftActivities = async (search: string, pageSize: number) => {
 export const getUser = async () => {
   requestInterception();
   const user = await mirrorworld.fetchUser();
+  eventBus.emit("user", user);
   return user;
 };
 
@@ -208,7 +213,7 @@ export const updateNFTListing = async (mint_address: string, price: number) => {
   requestInterception();
   if (!mirrorworld.user) {
     toast("Logging in");
-    await mirrorworld.login();
+    await login();
   }
   const listing = await mirrorworld.updateNFTListing({
     mintAddress: mint_address,
@@ -223,7 +228,7 @@ export const cancelNFTListing = async (mint_address: string, price: number) => {
   requestInterception();
   if (!mirrorworld.user) {
     toast("Logging in");
-    await mirrorworld.login();
+    await login();
   }
   const listing = await mirrorworld.cancelNFTListing({
     mintAddress: mint_address,
@@ -242,7 +247,7 @@ export const transferNFT = async (
   console.log(mintAddress, recipientAddress);
   if (!mirrorworld.user) {
     toast("Logging in");
-    await mirrorworld.login();
+    await login();
   }
   const transactionResult = await mirrorworld.transferNFT({
     mintAddress: mintAddress,

@@ -1,18 +1,20 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.less";
 
-import { Button } from "antd-mobile";
 import Search from "./components/search";
 import Filter from "./components/filter";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { getCollectionInfo, getCollectionNfts } from "./api/request";
 import userConfig from "@/userConfig.json";
 import { useRouter } from "next/router";
+import { useMirrorWorld } from '@/hooks/use-mirrorworld';
 
 const newList = new Array();
 const Home = () => {
+
+  const { mirrorworld } = useMirrorWorld()
+
+  const user = useMemo(() => mirrorworld?.user, [mirrorworld])
+
   const [filterData, setFilterData] = useState([]);
   const [firstTime, setFirstTime] = useState(false);
   const [listHeight, setListHeight] = useState([]);
@@ -120,19 +122,14 @@ const Home = () => {
   if (!firstTime) {
     getCollectionInfoFunc();
   }
-  // useEffect(() => {
-  //   console.log(data.length, listHeight?.length, "data");
-  //   if (listHeight?.length >= data.length - 1) return;
-  //   if (document?.getElementsByClassName("2datalist")?.[0]?.clientHeight) {
-  //     const list = JSON.parse(JSON.stringify(listHeight));
-  //     for (let i = 0; i < data.length; i += 2) {
-  //       list[i] =
-  //         document?.getElementsByClassName(`${i}datalist`)?.[0]?.clientHeight -
-  //         10;
-  //       setListHeight(JSON.parse(JSON.stringify(list)));
-  //     }
-  //   }
-  // });
+
+  useEffect(() => {
+    console.log("user", user)
+  }, [user])
+
+
+
+
   return (
     <div>
       <div

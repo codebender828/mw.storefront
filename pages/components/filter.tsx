@@ -177,7 +177,7 @@ const Filter = (props: props) => {
               : ""}
           </p>
         )}
-        <p className={styles.secondary_search}>
+        <div className={styles.secondary_search}>
           <p className={styles.secondary_search_nav}>
             {data?.[collectionSelected] && (
               <span
@@ -502,7 +502,7 @@ const Filter = (props: props) => {
               })}
             </div>
           )}
-        </p>
+        </div>
         {/* filter三级导航 */}
         {filterSearch && orderFilterData?.length && (
           <p
