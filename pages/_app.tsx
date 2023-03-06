@@ -7,6 +7,7 @@ import "antd-mobile/bundle/css-vars-patch.css";
 import type { AppProps } from "next/app";
 
 import Head from "next/head";
+import { Toaster } from 'sonner';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <Component {...pageProps} />
+      <Toaster />
     </>
   );
 }
