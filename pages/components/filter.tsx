@@ -14,6 +14,8 @@ export interface props {
   style: object;
 }
 
+let mounted = false
+
 const Filter = (props: props) => {
   const { search, data, style } = props;
   const [collectionSelected, setCollectionSelected] = useState(0);
@@ -22,7 +24,7 @@ const Filter = (props: props) => {
   const [orderSearchVal, setOrderSearchVal] = useState(0);
 
   //  0: for sale; 1: not for sale;2: all,
-  const [saleSearchVal, setSaleSearchVal] = useState(0);
+  const [saleSearchVal, setSaleSearchVal] = useState(2);
   const [showSaleSearch, setShowSaleSearch] = useState(false);
 
   const [filterSearch, setFilterSearch] = useState(false);
@@ -131,6 +133,26 @@ const Filter = (props: props) => {
     setSelectedFilter(JSON.parse(JSON.stringify(array)));
     return sortData;
   };
+
+  useEffect(() => {
+    if (mounted) return
+
+    const allNFTsIndex = 2
+
+    search((allNFTsIndex + 1) % 3, "sale");
+    setSaleSearchVal(allNFTsIndex);
+    setOrderSearch(false);
+    setShowSaleSearch(false);
+
+    mounted = true
+
+    return () => {
+      mounted = true
+    }
+  }, [])
+
+
+  
   return (
     <div id="filter" style={{ ...style }}>
       <div className={styles.filter}>

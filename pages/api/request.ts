@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import userConfig from "@/userConfig.json";
 import { toast } from "sonner";
 
@@ -6,6 +6,7 @@ declare let window: any;
 
 const ifProduct = userConfig.xApiKey.length < 42;
 let request: any = null;
+let requestV2: AxiosInstance | null = null;
 
 import { MirrorWorld, ClusterEnvironment } from "@mirrorworld/web3.js";
 
@@ -46,12 +47,48 @@ const requestInterception = () => {
     getAUTH() || window?.localStorage?.auth
   }`;
 };
+
+const requestInterceptionV2 = () => {
+  if (requestV2) return requestV2;
+  requestV2 = axios.create({
+    baseURL: ifProduct
+      ? `https://api.mirrorworld.fun/v2`
+      : `https://api-staging.mirrorworld.fun/v2`,
+    headers: {
+      Authorization: `Bearer ${getAUTH() || window?.localStorage?.auth}`,
+      "x-api-key": userConfig.xApiKey,
+    },
+  });
+  mirrorworld._api.client.defaults.headers.common.Authorization = `Bearer ${
+    getAUTH() || window?.localStorage?.auth
+  }`;
+  mirrorworld._api.sso.defaults.headers.common.Authorization = `Bearer ${
+    getAUTH() || window?.localStorage?.auth
+  }`;
+
+  return requestV2;
+};
+
+function toSolanaNetwork() {
+  const network = userConfig.network;
+  if (network === "mainnet") {
+    return "mainnet-beta";
+  } else if (network === "testnet") {
+    return "testnet";
+  } else {
+    return "devnet";
+  }
+}
+
 // Get collection info
 export const getCollectionInfo = async () => {
-  requestInterception();
-  const data = await request.post("collections", {
-    collections: userConfig.collections,
-  });
+  const requestV2 = requestInterceptionV2();
+  const data = await requestV2.post(
+    `/solana/${toSolanaNetwork()}/metadata/collections`,
+    {
+      collections: userConfig.collections,
+    }
+  );
   return data;
 };
 
@@ -136,6 +173,7 @@ export const buyNFT = async (mint_address: string, price: number) => {
   const listing = await mirrorworld.buyNFT({
     mintAddress: mint_address,
     price: price,
+    auctionHouse: userConfig.auctionHouse,
   });
   // const data = await request.post(`https://api-staging.mirrorworld.fun/v1/devnet/solana/marketplace/buy
   // `, {
@@ -175,6 +213,7 @@ export const updateNFTListing = async (mint_address: string, price: number) => {
   const listing = await mirrorworld.updateNFTListing({
     mintAddress: mint_address,
     price: price, // Amount in SOL
+    auctionHouse: userConfig.auctionHouse,
   });
   return listing;
 };
@@ -189,7 +228,7 @@ export const cancelNFTListing = async (mint_address: string, price: number) => {
   const listing = await mirrorworld.cancelNFTListing({
     mintAddress: mint_address,
     price: price, // Amount in SOL
-    // confirmation: "finalized"
+    auctionHouse: userConfig.auctionHouse,
   });
   return listing;
 };
