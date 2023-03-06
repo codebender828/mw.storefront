@@ -1,11 +1,9 @@
 {
-  "collections": [
-    "Please enter your Collection ID"
-  ],
-  "xApiKey": "Please enter your API Key",
-  "serviceFee": "Please enter your service fee (Recommended 4.25)",
-  "currencyOption": "Please enter your payment token",
-  "name": "Please enter your storefront name",
+  "collections": ["CnFFwJ4V2RaNorLs7EdtNZqQ2uhgXp6X3gKEmLgxEBPZ"],
+  "xApiKey": "mw_lCX2WHH7mBspKuWQuSoKhxKJSJN0FAMIqM5",
+  "serviceFee": "3",
+  "currencyOption": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  "name": "Demo Storefront",
   "logo": "Please enter your logo image URL",
-  "network": "Please enter your selected network "
+  "network": "mainnet"
 }
