@@ -103,7 +103,7 @@ const Footer = (props: props) => {
               className={styles.footer_button_buy}
               onClick={async () => {
                 if (resultStatus === 2) {
-                  router.push("/");
+                  return router.push("/");
                 }
                 setResultStatus(1);
                 try {
